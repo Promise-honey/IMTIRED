@@ -1,0 +1,99 @@
+﻿@using IMTIRED.Utilities
+@using IMTIRED.Services
+@using IMTIRED.Models
+@inject UserSession UserSession
+@inject RoomService RoomService
+@inject RoombookingService RoombookingService
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+
+@page "/account"
+
+<h3>Account</h3>
+
+<button @onclick="ShowUserId">Show User ID</button>
+
+@if (customer != null)
+{
+    <li>@customer.FirstName @customer.LastName</li>
+}
+
+@if (rooms != null && rooms.Count > 0)
+{
+    <ul>
+        @foreach (var room in rooms)
+        {
+            <li>Room @room.RoomNumber: @room.RoomType for @room.Capacity people</li>
+        }
+    </ul>
+}
+
+<div>
+    @if (rooms != null && rooms.Count > 0)
+    {
+        <select @bind=Roomnumber>
+            @foreach (var room in rooms)
+            {
+                <option value="@room.RoomNumber">@room.RoomType</option>
+            }
+        </select>
+    }
+    <input type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" @bind=startDate>
+    <select @bind=Days>
+        @for (int i = 1; i <= 7; i++)
+        {
+            <option value="@i">@i Days</option>
+        }
+    </select>
+    <button @onclick=BookRoom>Book this room</button>
+</div>
+
+<button @onclick=Logout>Log Out</button>
+
+<a href="/bookings">My Bookings</a>
+
+@code {
+    private Customer customer;
+    private List<Room> rooms;
+    private DateOnly startDate;
+    private Room Room;
+    private string Roomnumber;  // Change to string if RoomNumber in Room model is string
+    private int Days;
+    private bool loaded = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        rooms = await RoomService.GetRoomsAsync();
+        if (UserSession.UserId == 0)
+        {
+            NavigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            customer = await CustomerService.GetCustomerFromIdAsync(UserSession.UserId);
+            loaded = true; // Set loaded to true after data is retrieved
+        }
+    }
+
+    private void ShowUserId()
+    {
+        Console.WriteLine(UserSession.UserId); // Retrieve server-side user ID
+    }
+
+    private void Logout()
+    {
+        UserSession.UserId = 0;
+        NavigationManager.NavigateTo("/"); // No need for async here
+    }
+
+    private async Task BookRoom()
+    {
+        DateTime startDateTime = startDate.ToDateTime(new TimeOnly(0, 0));  // Convert DateOnly to DateTime
+        Console.WriteLine(Roomnumber);  // Ensure Roomnumber is correctly bound as string
+
+        Room = await RoomService.GetRoomAsync(Roomnumber);  // Use Roomnumber as string directly
+        await RoombookingService.AddRoombookingAsync(customer, Room, startDateTime, Days);
+    }
+}

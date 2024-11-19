@@ -1,0 +1,84 @@
+﻿@page "/log_in"
+@using IMTIRED.Models
+@using IMTIRED.Services
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+
+@rendermode InteractiveServer
+
+<h3>Log In</h3>
+
+<EditForm Model="newCustomer" OnValidSubmit="HandleValidSubmit" FormName="LoginForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Username:</label>
+        <InputText @bind-Value="newCustomer.Username" />
+    </div>
+
+    <div>
+        <label>Password:</label>
+        <InputText @bind-Value="password" type="password" />
+    </div>
+
+    <div>
+        <label>
+            <InputCheckbox @bind-Value="rememberMe" />
+            Remember Me
+        </label>
+    </div>
+
+    <button type="submit">Log In</button>
+
+    <div>
+        <a href="/forgot_password">Forgot Password?</a>
+    </div>
+</EditForm>
+
+@code {
+    private Customer newCustomer = new Customer();
+    private string password;
+    private bool rememberMe;
+
+    private async Task HandleValidSubmit()
+    {
+        if (newCustomer != null && !string.IsNullOrEmpty(newCustomer.Username) && !string.IsNullOrEmpty(password))
+        {
+            // Assuming password hashing if necessary
+            var loggedInCustomer = await CustomerService.LogIn(newCustomer);
+
+            if (loggedInCustomer == null)
+            {
+                Console.WriteLine("Could not log in");
+            }
+            else
+            {
+                // Update newCustomer with the logged-in user details
+                newCustomer = loggedInCustomer;
+
+                if (rememberMe)
+                {
+                    // Store a cookie to remember the user
+                    var options = new CookieOptions
+                        {
+                            Expires = DateTime.Now.AddDays(30), // Set cookie to expire in 30 days
+                            HttpOnly = true, // Cookie is inaccessible via JavaScript
+                            Secure = true // Only sent over HTTPS
+                        };
+                    // Store the cookie here (depending on your framework, this will vary)
+                    NavigationManager.NavigateTo("/account", forceLoad: true);
+                }
+                else
+                {
+                    // Redirect without storing a cookie
+                    NavigationManager.NavigateTo("/account");
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Invalid form data");
+        }
+    }
+}

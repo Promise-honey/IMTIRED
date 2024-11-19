@@ -1,0 +1,166 @@
+﻿@page "/"
+@using IMTIRED.Models
+@using IMTIRED.Services
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager NavigationManager
+
+<PageTitle>Home - WildHaven Zoo</PageTitle>
+
+<!-- Hero Section -->
+<div class="hero">
+    <img src="images/tiger-in-zoo.jpg" alt="Tiger at WildHaven Zoo" class="hero-image" />
+    <h1>WildHaven Zoo</h1>
+
+    <!-- Slideshow Dots -->
+    <div class="slideshow-dots">
+        @for (int i = 0; i < 4; i++)
+        {
+            <button class="dot @(i == 0 ? "active" : "")" @onclick="() => ChangeSlideshowImage(i)"></button>
+        }
+    </div>
+</div>
+
+<!-- Info Cards Section -->
+<div class="info-cards">
+    <div class="info-card">
+        <i class="fa fa-paw"></i>
+        <h3>Visit Our Animals</h3>
+        <p>Explore the wildlife at WildHaven Zoo.</p>
+    </div>
+    <div class="info-card">
+        <i class="fa fa-ticket-alt"></i>
+        <h3>Buy Tickets</h3>
+        <p>Book your tickets to experience WildHaven Zoo.</p>
+    </div>
+    <div class="info-card">
+        <i class="fa fa-users"></i>
+        <h3>Group Visits</h3>
+        <p>Plan a group visit and enjoy special offers.</p>
+    </div>
+    <div class="info-card">
+        <i class="fa fa-map-signs"></i>
+        <h3>Guided Tours</h3>
+        <p>Join our guided tours to learn more about the zoo.</p>
+    </div>
+</div>
+
+<!-- Book Ticket Button -->
+<button class="book-button" @onclick="NavigateToBookingPage">Book Ticket</button>
+
+@code {
+    // The NavigationManager is already injected, so we don't need to define it again.
+    private string[] Images = new string[]
+    {
+        "images/tiger-in-zoo.jpg",
+        "images/lion-in-zoo.jpg",
+        "images/deer-in-zoo.jpg",
+        "images/giraffe-in-zoo.jpg"
+    };
+
+    private int currentImageIndex = 0;
+
+    private void ChangeSlideshowImage(int index)
+    {
+        currentImageIndex = index;
+    }
+
+    // Correct method to navigate to the booking page
+    private void NavigateToBookingPage()
+    {
+        // Navigates to the booking page (/book_ing)
+        NavigationManager.NavigateTo("/book_ing");
+    }
+}
+
+<style>
+    .hero {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Style for the dots (buttons) */
+    .slideshow-dots {
+        position: absolute;
+        bottom: 6rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    /* Basic styling for each dot */
+    .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.6);
+        border: none;
+        cursor: pointer;
+    }
+
+        /* Active dot styling */
+        .dot.active {
+            background-color: white;
+        }
+
+    /* Info cards section styling */
+    .info-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        max-width: 1200px;
+        margin-top: -4rem;
+        padding: 0 1rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    .info-card {
+        background-color: #5B7553;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        color: white;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+        .info-card:hover {
+            transform: translateY(-0.25rem);
+        }
+
+        .info-card i {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 1.125rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+    /* Book button styling */
+    .book-button {
+        background-color: #5B7553;
+        color: white;
+        font-size: 1.25rem;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 2rem;
+    }
+
+        .book-button:hover {
+            background-color: #4b5c42;
+        }
+</style>

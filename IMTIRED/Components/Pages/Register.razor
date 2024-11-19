@@ -1,0 +1,92 @@
+﻿@page "/register"
+@using IMTIRED.Models
+@using IMTIRED.Services
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@inject NavigationManager NavigationManager
+
+<h3>Register</h3>
+
+<div>
+    <label>Username</label>
+    <input @bind="newCustomer.Username" />
+</div>
+
+<div>
+    <label>Password</label>
+    <input type="password" @bind="newCustomer.Password" />
+</div>
+
+<div>
+    <label>Confirm Password</label>
+    <input type="password" @bind="confirmPassword" />
+</div>
+
+<div>
+    <label>First Name</label>
+    <input @bind="newCustomer.FirstName" />
+</div>
+
+<div>
+    <label>Last Name</label>
+    <input @bind="newCustomer.LastName" />
+</div>
+
+<div>
+    <label>Email</label>
+    <input type="email" @bind="newCustomer.Email" />
+</div>
+
+<div>
+    <label>Phone Number</label>
+    <input type="tel" @bind="newCustomer.PhoneNumber" />
+</div>
+
+<div>
+    <label>Date of Birth</label>
+    <input type="date" @bind="newCustomer.DateOfBirth" />
+</div>
+
+<div>
+    <label>Address</label>
+    <input @bind="newCustomer.Address" />
+</div>
+
+<button @onclick="RegisterCustomer">Register</button>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p style="color:red">@errorMessage</p>
+}
+
+@code {
+    private Customer newCustomer = new Customer();
+    private string confirmPassword;
+    private string errorMessage;
+
+    private async Task RegisterCustomer()
+    {
+        errorMessage = string.Empty; // Reset error message
+
+        // Check if passwords match
+        if (newCustomer.Password != confirmPassword)
+        {
+            errorMessage = "Passwords do not match";
+            return;
+        }
+
+        // Check if username is already taken
+        bool usernameTaken = await CustomerService.CheckUsernameExistsAsync(newCustomer.Username);
+
+        if (usernameTaken)
+        {
+            errorMessage = "Username is already taken";
+        }
+        else
+        {
+            await CustomerService.AddCustomerAsync(newCustomer);
+            newCustomer = new Customer();
+            confirmPassword = string.Empty;
+        }
+    }
+}
