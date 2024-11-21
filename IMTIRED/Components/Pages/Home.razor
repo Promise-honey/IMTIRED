@@ -1,8 +1,5 @@
 ﻿@page "/"
-@using IMTIRED.Models
-@using IMTIRED.Services
 @using Microsoft.AspNetCore.Components
-@inject NavigationManager NavigationManager
 
 <PageTitle>Home - WildHaven Zoo</PageTitle>
 
@@ -13,9 +10,9 @@
 
     <!-- Slideshow Dots -->
     <div class="slideshow-dots">
-        @for (int i = 0; i < 4; i++)
+        @for (int i = 0; i < Images.Length; i++)
         {
-            <button class="dot @(i == 0 ? "active" : "")" @onclick="() => ChangeSlideshowImage(i)"></button>
+            <button class="dot @(i == currentImageIndex ? "active" : "")" @onclick="() => ChangeSlideshowImage(i)"></button>
         }
     </div>
 </div>
@@ -23,34 +20,25 @@
 <!-- Info Cards Section -->
 <div class="info-cards">
     <div class="info-card">
-        <i class="fa fa-paw"></i>
-        <h3>Visit Our Animals</h3>
-        <p>Explore the wildlife at WildHaven Zoo.</p>
+        <i class="fa fa-clock"></i>
+        <p>Opening Times</p>
     </div>
     <div class="info-card">
         <i class="fa fa-ticket-alt"></i>
-        <h3>Buy Tickets</h3>
-        <p>Book your tickets to experience WildHaven Zoo.</p>
-    </div>
-    <div class="info-card">
-        <i class="fa fa-users"></i>
-        <h3>Group Visits</h3>
-        <p>Plan a group visit and enjoy special offers.</p>
+        <p>Plan Your Visit</p>
     </div>
     <div class="info-card">
         <i class="fa fa-map-signs"></i>
-        <h3>Guided Tours</h3>
-        <p>Join our guided tours to learn more about the zoo.</p>
+        <p>Zoo Map</p>
+    </div>
+    <div class="info-card">
+        <i class="fa fa-location-arrow"></i>
+        <p>Location</p>
     </div>
 </div>
 
-<!-- Book Ticket Button -->
-<button class="book-button" @onclick="NavigateToBookingPage">Book Ticket</button>
-
 @code {
-    // The NavigationManager is already injected, so we don't need to define it again.
-    private string[] Images = new string[]
-    {
+    private string[] Images = new string[] {
         "images/tiger-in-zoo.jpg",
         "images/lion-in-zoo.jpg",
         "images/deer-in-zoo.jpg",
@@ -63,16 +51,10 @@
     {
         currentImageIndex = index;
     }
-
-    // Correct method to navigate to the booking page
-    private void NavigateToBookingPage()
-    {
-        // Navigates to the booking page (/book_ing)
-        NavigationManager.NavigateTo("/book_ing");
-    }
 }
 
 <style>
+    /* Hero Section */
     .hero {
         position: relative;
         height: 500px;
@@ -85,17 +67,27 @@
         object-fit: cover;
     }
 
-    /* Style for the dots (buttons) */
+    .hero h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 4rem;
+        font-family: 'Comic Sans MS', cursive;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Slideshow Dots */
     .slideshow-dots {
         position: absolute;
-        bottom: 6rem;
+        bottom: 2rem;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
         gap: 0.5rem;
     }
 
-    /* Basic styling for each dot */
     .dot {
         width: 12px;
         height: 12px;
@@ -105,18 +97,17 @@
         cursor: pointer;
     }
 
-        /* Active dot styling */
         .dot.active {
             background-color: white;
         }
 
-    /* Info cards section styling */
+    /* Info Cards */
     .info-cards {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 1rem;
         max-width: 1200px;
-        margin-top: -4rem;
+        margin: -4rem auto 0;
         padding: 0 1rem;
         position: relative;
         z-index: 10;
@@ -146,21 +137,5 @@
             font-size: 1.125rem;
             font-weight: 500;
             margin-top: 0.5rem;
-        }
-
-    /* Book button styling */
-    .book-button {
-        background-color: #5B7553;
-        color: white;
-        font-size: 1.25rem;
-        padding: 0.75rem 2rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 2rem;
-    }
-
-        .book-button:hover {
-            background-color: #4b5c42;
         }
 </style>

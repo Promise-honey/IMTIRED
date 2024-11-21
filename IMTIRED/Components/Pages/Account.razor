@@ -65,7 +65,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        rooms = await RoomService.GetRoomsAsync();
+        // Check if user is logged in
         if (UserSession.UserId == 0)
         {
             NavigationManager.NavigateTo("/login");
@@ -73,9 +73,14 @@
         else
         {
             customer = await CustomerService.GetCustomerFromIdAsync(UserSession.UserId);
-            loaded = true; // Set loaded to true after data is retrieved
+            if (customer != null)
+            {
+                rooms = await RoomService.GetRoomsAsync();
+                loaded = true; // Set loaded to true after data is retrieved
+            }
         }
     }
+
 
     private void ShowUserId()
     {
@@ -84,9 +89,10 @@
 
     private void Logout()
     {
-        UserSession.UserId = 0;
-        NavigationManager.NavigateTo("/"); // No need for async here
+        UserSession.UserId = 0; // Reset user session
+        NavigationManager.NavigateTo("/"); // Redirect to homepage
     }
+
 
     private async Task BookRoom()
     {

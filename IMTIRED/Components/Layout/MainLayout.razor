@@ -1,20 +1,105 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
 
 <nav class="main-nav">
     <div class="nav-container">
+        <!-- Logo -->
         <div class="logo">WildHaven</div>
+
+        <!-- Navigation Links -->
         <div class="nav-links">
-            <NavLink href="" Match="NavLinkMatch.All">Home</NavLink>
-            <NavLink href="/animals" Match="NavLinkMatch.All">Animals & Exhibits</NavLink>
-            <NavLink href="news">Zoo News</NavLink>
-            <NavLink href="blog">Blog</NavLink>
-            <NavLink href="shop">Shop</NavLink>
-            <NavLink href="contact">Contact Us</NavLink>
+            <NavLink href="/" Match="NavLinkMatch.All" class="nav-link">Home</NavLink>
+            <NavLink href="/animals" Match="NavLinkMatch.Prefix" class="nav-link">Animals & Exhibits</NavLink>
+            <NavLink href="/news" Match="NavLinkMatch.Prefix" class="nav-link">Zoo News</NavLink>
+            <NavLink href="/blog" Match="NavLinkMatch.Prefix" class="nav-link">Blog</NavLink>
+            <NavLink href="/shop" Match="NavLinkMatch.Prefix" class="nav-link">Shop</NavLink>
+            <NavLink href="/contact" Match="NavLinkMatch.Prefix" class="nav-link">Contact Us</NavLink>
         </div>
-        <button class="book-button">Book Your Tickets</button>
+
+        <!-- Call-to-Action Buttons -->
+        <div class="nav-buttons">
+            <a href="/log_in" class="nav-button">Login</a>
+            <a href="/book_ing" class="nav-button primary">Book Tickets</a>
+        </div>
     </div>
 </nav>
 
 <main>
     @Body
 </main>
+
+<style>
+    .main-nav {
+        background-color: #5B7553;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .logo {
+        font-size: 1.75rem;
+        font-weight: bold;
+        color: white;
+        font-family: 'Comic Sans MS', cursive;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .nav-link {
+        color: white; /* Set the desired color */
+        text-decoration: none; /* Remove underline */
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+        .nav-link:hover {
+            background-color: #4A6244;
+            transform: scale(1.05);
+        }
+
+    .nav-button {
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-size: 1rem;
+        color: white;
+        background-color: #6B8E58;
+        transition: background-color 0.3s ease;
+    }
+
+        .nav-button:hover {
+            background-color: #4A6244;
+        }
+
+        .nav-button.primary {
+            background-color: #D4A017;
+            font-weight: bold;
+        }
+
+            .nav-button.primary:hover {
+                background-color: #B78913;
+            }
+
+    main {
+        padding: 2rem;
+        min-height: calc(100vh - 80px); /* Adjust for the nav height */
+    }
+</style>

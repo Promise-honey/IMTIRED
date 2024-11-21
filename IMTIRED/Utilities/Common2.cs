@@ -4,3 +4,7 @@
     {
     }
 }
+public class UserSession
+{
+    public int UserId { get; set; }
+}
