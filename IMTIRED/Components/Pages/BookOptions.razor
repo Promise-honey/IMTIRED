@@ -1,0 +1,100 @@
+﻿@using IMTIRED.Models
+@using IMTIRED.Services
+@inject CustomerService CustomerService
+@using IMTIRED.Models
+@using IMTIRED.Services
+@inject CustomerService CustomerService
+@using IMTIRED.Utilities
+@inject UserSession UserSession
+@page "/book-options"
+
+<PageTitle>Book Tickets - WildHaven Zoo</PageTitle>
+
+<div class="book-options">
+    <h1>Select Your Booking Option</h1>
+    <div class="options-container">
+        <div class="option">
+            <h2>Zoo Day Tickets</h2>
+            <p>Experience the zoo for the day with our day passes.</p>
+            <NavLink class="button" href="/zoo-tickets">Book Now</NavLink>
+        </div>
+        <div class="option">
+            <h2>Hotel Booking</h2>
+            <p>Stay at our WildHaven Resort and enjoy the comfort of nature.</p>
+            <NavLink class="button" href="/hotel-booking">Book Now</NavLink>
+        </div>
+        <div class="option">
+            <h2>Zoo & Hotel Tickets</h2>
+            <p>Get the full experience with a combo package.</p>
+            <NavLink class="button" href="/combined-tickets">Book Now</NavLink>
+        </div>
+
+        <div class="option">
+            <h2>Animal Experiences</h2>
+            <p>Get up close and personal with our amazing animals.</p>
+            <NavLink class="button" href="/animal-experiences">Book Now</NavLink>
+        </div>
+        <div class="option">
+            <h2>Memberships</h2>
+            <p>Become a member and enjoy unlimited access to the zoo.</p>
+            <NavLink class="button" href="/shop">Join Now</NavLink>
+        </div>
+        <div class="option">
+            <h2>Educational Bookings</h2>
+            <p>Book a fun and educational experience for your group or class.</p>
+            <NavLink class="button" href="/educational-bookings">Book Now</NavLink>
+        </div>
+        <div class="option">
+            <h2>Animal Adoptions</h2>
+            <p>Adopt an animal and support its care and well-being.</p>
+            <NavLink class="button" href="/animal-adoptions">Adopt Now</NavLink>
+        </div>
+    </div>
+</div>
+
+<style>
+    .book-options {
+        padding: 2rem;
+        text-align: center;
+        margin-top: 4rem;
+    }
+
+    .options-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .option {
+        background-color: #5B7553;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 300px;
+        margin-top: 1rem;
+    }
+
+        .option h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .option p {
+            margin-bottom: 1rem;
+        }
+
+    .button {
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        background-color: #D4A017;
+        color: white;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .button:hover {
+            background-color: #B78913;
+        }
+</style>

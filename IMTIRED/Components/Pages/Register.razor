@@ -67,27 +67,17 @@
 
     private async Task RegisterCustomer()
     {
-        errorMessage = string.Empty; // Reset error message
+        await CustomerService.RegisterCustomer(newCustomer, confirmPassword, errorMessage);
 
-        // Check if passwords match
-        if (newCustomer.Password != confirmPassword)
+        if (string.IsNullOrEmpty(errorMessage))
         {
-            errorMessage = "Passwords do not match";
-            return;
-        }
-
-        // Check if username is already taken
-        bool usernameTaken = await CustomerService.CheckUsernameExistsAsync(newCustomer.Username);
-
-        if (usernameTaken)
-        {
-            errorMessage = "Username is already taken";
+            // Redirect to the login page or another page after registration
+            NavigationManager.NavigateTo("/log_in");
         }
         else
         {
-            await CustomerService.AddCustomerAsync(newCustomer);
-            newCustomer = new Customer();
-            confirmPassword = string.Empty;
+            // Display error message
+            StateHasChanged();
         }
     }
 }

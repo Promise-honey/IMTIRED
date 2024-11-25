@@ -1,4 +1,10 @@
-﻿@page "/"
+﻿@using IMTIRED.Models
+@using IMTIRED.Services
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@using IMTIRED.Utilities
+@inject UserSession UserSession
+@page "/"
 @using Microsoft.AspNetCore.Components
 
 <PageTitle>Home - WildHaven Zoo</PageTitle>
@@ -37,6 +43,17 @@
     </div>
 </div>
 
+<!-- Upcoming Events Section -->
+<div class="upcoming-events">
+    <h2>Upcoming Events</h2>
+    <ul>
+        <li><strong>Wild Animal Parade:</strong> December 10, 2024</li>
+        <li><strong>Zoo Night Safari:</strong> January 5, 2025</li>
+        <li><strong>Animal Feeding Time:</strong> February 14, 2025</li>
+        <!-- Add more events here -->
+    </ul>
+</div>
+
 @code {
     private string[] Images = new string[] {
         "images/tiger-in-zoo.jpg",
@@ -54,6 +71,34 @@
 }
 
 <style>
+    /* Upcoming Events */
+    .upcoming-events {
+        margin-top: 2rem;
+        background-color: #4A6244;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        color: white;
+    }
+
+        .upcoming-events h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .upcoming-events ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .upcoming-events li {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+            .upcoming-events li strong {
+                color: #D4A017;
+            }
+
     /* Hero Section */
     .hero {
         position: relative;
@@ -81,7 +126,7 @@
     /* Slideshow Dots */
     .slideshow-dots {
         position: absolute;
-        bottom: 2rem;
+        bottom: 5rem;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -139,3 +184,5 @@
             margin-top: 0.5rem;
         }
 </style>
+
+

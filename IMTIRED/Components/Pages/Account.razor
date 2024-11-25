@@ -54,6 +54,11 @@
 
 <a href="/bookings">My Bookings</a>
 
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <p style="color:red">@errorMessage</p>
+}
+
 @code {
     private Customer customer;
     private List<Room> rooms;
@@ -61,7 +66,7 @@
     private Room Room;
     private string Roomnumber;  // Change to string if RoomNumber in Room model is string
     private int Days;
-    private bool loaded = false;
+    private string errorMessage;  // Now displaying the error message
 
     protected override async Task OnInitializedAsync()
     {
@@ -76,11 +81,9 @@
             if (customer != null)
             {
                 rooms = await RoomService.GetRoomsAsync();
-                loaded = true; // Set loaded to true after data is retrieved
             }
         }
     }
-
 
     private void ShowUserId()
     {
@@ -93,13 +96,28 @@
         NavigationManager.NavigateTo("/"); // Redirect to homepage
     }
 
-
     private async Task BookRoom()
     {
+        // Check if customer is null, if not logged in
+        if (customer == null)
+        {
+            errorMessage = "You must be logged in to book a room.";
+            return;
+        }
+
+        // Proceed if customer is logged in
         DateTime startDateTime = startDate.ToDateTime(new TimeOnly(0, 0));  // Convert DateOnly to DateTime
         Console.WriteLine(Roomnumber);  // Ensure Roomnumber is correctly bound as string
 
-        Room = await RoomService.GetRoomAsync(Roomnumber);  // Use Roomnumber as string directly
+        // Check if Room is found by Room number
+        Room = await RoomService.GetRoomAsync(Roomnumber);
+        if (Room == null)
+        {
+            errorMessage = "Room not found.";
+            return;
+        }
+
+        // Proceed with booking the room if no errors
         await RoombookingService.AddRoombookingAsync(customer, Room, startDateTime, Days);
     }
 }

@@ -1,0 +1,263 @@
+﻿@using IMTIRED.Models
+@using IMTIRED.Services
+@inject TicketbookingService TicketbookingService
+@inject TicketService TicketService
+@inject NavigationManager NavigationManager
+@page "/zoo-tickets"
+
+<PageTitle>Zoo Day Tickets - WildHaven Zoo</PageTitle>
+
+<div class="zoo-tickets">
+    <h1>Choose Your Zoo Day Tickets</h1>
+    <div class="tickets-container">
+        <div class="ticket-option">
+            <h2>Adult Admission</h2>
+            <p>$31.50</p>
+            <div class="ticket-controls">
+                <button @onclick="() => AdjustTicketQuantity(AdultTicket, -1)">-</button>
+                <span>@AdultTicket.Quantity</span>
+                <button @onclick="() => AdjustTicketQuantity(AdultTicket, 1)">+</button>
+            </div>
+        </div>
+        <div class="ticket-option">
+            <h2>Child Admission (3-15 years)</h2>
+            <p>$22.00</p>
+            <div class="ticket-controls">
+                <button @onclick="() => AdjustTicketQuantity(ChildTicket, -1)">-</button>
+                <span>@ChildTicket.Quantity</span>
+                <button @onclick="() => AdjustTicketQuantity(ChildTicket, 1)">+</button>
+            </div>
+        </div>
+        <div class="ticket-option">
+            <h2>Student Admission</h2>
+            <p>$30.00</p>
+            <div class="ticket-controls">
+                <button @onclick="() => AdjustTicketQuantity(StudentTicket, -1)">-</button>
+                <span>@StudentTicket.Quantity</span>
+                <button @onclick="() => AdjustTicketQuantity(StudentTicket, 1)">+</button>
+            </div>
+        </div>
+        <div class="ticket-option">
+            <h2>Toddler (1-2 years)</h2>
+            <p>$2.50</p>
+            <div class="ticket-controls">
+                <button @onclick="() => AdjustTicketQuantity(ToddlerTicket, -1)">-</button>
+                <span>@ToddlerTicket.Quantity</span>
+                <button @onclick="() => AdjustTicketQuantity(ToddlerTicket, 1)">+</button>
+            </div>
+        </div>
+        <div class="ticket-option">
+            <h2>Under 12 Months</h2>
+            <p>Free</p>
+            <div class="ticket-controls">
+                <button @onclick="() => AdjustTicketQuantity(UnderOneTicket, -1)">-</button>
+                <span>@UnderOneTicket.Quantity</span>
+                <button @onclick="() => AdjustTicketQuantity(UnderOneTicket, 1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="basket">
+        <h2>Your Basket</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticket Type</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in basket)
+                {
+                    <tr>
+                        <td>@ticket.TicketType</td>
+                        <td>@ticket.Quantity</td>
+                        <td>$@(ticket.Price * ticket.Quantity)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="total">
+            <h3>Total: $@basketTotal</h3>
+            <button @onclick="ProceedToCheckout">Proceed to Checkout</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    private List<TicketItem> basket = new();
+    private decimal basketTotal = 0;
+
+    private TicketItem AdultTicket = new TicketItem { TicketType = "Adult Admission", Price = 31.50m, Quantity = 0 };
+    private TicketItem ChildTicket = new TicketItem { TicketType = "Child Admission (3-15 years)", Price = 22.00m, Quantity = 0 };
+    private TicketItem StudentTicket = new TicketItem { TicketType = "Student Admission", Price = 30.00m, Quantity = 0 };
+    private TicketItem ToddlerTicket = new TicketItem { TicketType = "Toddler (1-2 years)", Price = 2.50m, Quantity = 0 };
+    private TicketItem UnderOneTicket = new TicketItem { TicketType = "Under 12 Months", Price = 0.00m, Quantity = 0 };
+
+    // Add a ticket to the basket
+    private void AddTicketToBasket(TicketItem ticket)
+    {
+        ticket.Quantity++;
+        UpdateBasket();
+    }
+
+    // Adjust ticket quantity (increase or decrease)
+    private void AdjustTicketQuantity(TicketItem ticket, int amount)
+    {
+        ticket.Quantity = Math.Max(0, ticket.Quantity + amount); // Ensure quantity doesn't go below 0
+        UpdateBasket();
+    }
+
+    // Update the basket after adding/removing a ticket
+    private void UpdateBasket()
+    {
+        basket.Clear();
+        if (AdultTicket.Quantity > 0) basket.Add(AdultTicket);
+        if (ChildTicket.Quantity > 0) basket.Add(ChildTicket);
+        if (StudentTicket.Quantity > 0) basket.Add(StudentTicket);
+        if (ToddlerTicket.Quantity > 0) basket.Add(ToddlerTicket);
+        if (UnderOneTicket.Quantity > 0) basket.Add(UnderOneTicket);
+
+        basketTotal = basket.Sum(t => t.Price * t.Quantity);
+    }
+
+    // Proceed to checkout and save data to the database
+    private async Task ProceedToCheckout()
+    {
+        try
+        {
+            int customerId = 1; // Placeholder, should be dynamically retrieved
+
+            // Create the ticket booking entry
+            var ticketbooking = new Ticketbooking
+            {
+                CustomerId = customerId,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                DateBooked = DateOnly.FromDateTime(DateTime.Now)
+            };
+
+            await TicketbookingService.AddTicketbookingAsync(ticketbooking);
+
+            // For each ticket in the basket, create and save a Ticket object
+            foreach (var item in basket)
+            {
+                var ticket = new Ticket
+                {
+                    TicketbookingId = ticketbooking.TicketbookingId,
+                    TicketType = item.TicketType,
+                    Quantity = item.Quantity,
+                    Price = item.Price,
+                    AttractionId = 1 // Assuming attraction ID is 1
+                };
+
+                await TicketService.AddTicketAsync(ticket);
+            }
+
+            // Clear the basket after checkout
+            basket.Clear();
+            basketTotal = 0;
+
+            // Navigate to the confirmation page
+            NavigationManager.NavigateTo("/confirmation");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error during checkout: {ex.Message}");
+        }
+    }
+}
+
+
+
+
+
+<style>
+    .zoo-tickets {
+        padding: 2rem;
+        text-align: center;
+        margin-top: 4rem;
+    }
+
+    .tickets-container {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .ticket-option {
+        background-color: #5B7553;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 200px;
+        cursor: pointer;
+    }
+
+        .ticket-option:hover {
+            background-color: #A9C087;
+        }
+
+    .ticket-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+        .ticket-controls button {
+            padding: 0.5rem 1rem;
+            background-color: #D4A017;
+            color: white;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+
+            .ticket-controls button:hover {
+                background-color: #B78913;
+            }
+
+    .basket {
+        background-color: #F0F0F0;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        table th, table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid #DDD;
+        }
+
+    .total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    button {
+        padding: 0.75rem 1.5rem;
+        background-color: #D4A017;
+        color: white;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+        cursor: pointer;
+    }
+
+        button:hover {
+            background-color: #B78913;
+        }
+</style>

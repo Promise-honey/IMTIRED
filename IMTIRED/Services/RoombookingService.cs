@@ -1,14 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using IMTIRED.Models;
+
 namespace IMTIRED.Services
 {
     public class RoombookingService
     {
         private readonly TlS2302374webContext _context;
+
         public RoombookingService(TlS2302374webContext context)
         {
             _context = context;
         }
+
         public async Task AddRoombookingAsync(Customer customer, Room room, DateTime startDate, int duration)
         {
             Roombooking newRoombooking = new Roombooking();
@@ -37,14 +40,24 @@ namespace IMTIRED.Services
         {
             return await _context.Roombookings.Where(rb => rb.CustomerId == customer.CustomerId).ToListAsync();
         }
+
         public async Task<List<Roombooking>> GetRoombookingsFromCustomer(int id)
         {
             return await _context.Roombookings.Where(rb => rb.CustomerId == id).ToListAsync();
         }
+
         public async Task DeleteBooking(Roombooking roombooking)
         {
             _context.Roombookings.Remove(roombooking);
             await _context.SaveChangesAsync();
         }
+
+        // Method to fetch a room by its RoomNumber
+        public async Task<Room?> GetRoomByNumber(string roomNumber)
+        {
+            return await _context.Rooms
+                                 .FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
+        }
     }
 }
+

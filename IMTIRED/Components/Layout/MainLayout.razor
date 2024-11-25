@@ -19,7 +19,7 @@
         <!-- Call-to-Action Buttons -->
         <div class="nav-buttons">
             <a href="/log_in" class="nav-button">Login</a>
-            <a href="/book_ing" class="nav-button primary">Book Tickets</a>
+            <a href="/book-options" class="nav-button primary">Book Tickets</a>
         </div>
     </div>
 </nav>
@@ -27,6 +27,14 @@
 <main>
     @Body
 </main>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <div class="footer-container">
+        <p>© 2024 WildHaven Zoo | All Rights Reserved</p>
+        <a href="/contact" class="footer-contact">Contact Us</a>
+    </div>
+</footer>
 
 <style>
     .main-nav {
@@ -62,8 +70,8 @@
     }
 
     .nav-link {
-        color: white; /* Set the desired color */
-        text-decoration: none; /* Remove underline */
+        color: white;
+        text-decoration: none;
         font-size: 1rem;
         padding: 0.5rem 1rem;
         border-radius: 5px;
@@ -100,6 +108,33 @@
 
     main {
         padding: 2rem;
-        min-height: calc(100vh - 80px); /* Adjust for the nav height */
+        min-height: calc(100vh - 80px);
     }
+
+    /* Footer Section */
+    .footer {
+        background-color: #5B7553;
+        padding: 1rem 2rem;
+        color: white;
+        text-align: center;
+    }
+
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .footer-contact {
+        display: inline-block;
+        margin-top: 1rem;
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: color 0.3s;
+    }
+
+        .footer-contact:hover {
+            color: #D4A017;
+        }
+
 </style>

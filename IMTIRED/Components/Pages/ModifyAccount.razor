@@ -1,12 +1,9 @@
-﻿@using IMTIRED.Utilities
-@using IMTIRED.Services
+﻿@page "/modify"
+
+@using IMTIRED.Utilities
 @inject UserSession UserSession
+@using IMTIRED.Services
 @inject CustomerService CustomerService
-
-@rendermode InteractiveServer
-
-@page "/modify"
-@page "/modify/{username}"
 
 <h3>Modify Account</h3>
 
@@ -36,6 +33,15 @@
     private string oldPassword;
     private string oldPasswordConfirm;
 
+    protected override async Task OnInitializedAsync()
+    {
+        // Example of setting the UserId, replace with actual login/session logic
+        if (UserSession.UserId == 0) // Ensure it's not already set
+        {
+            UserSession.UserId = 123;  // Example, you would get the actual user ID dynamically
+        }
+    }
+
     private async Task ChangePassword()
     {
         if (oldPassword == oldPasswordConfirm)
@@ -46,6 +52,7 @@
         }
     }
 }
+
 
 <style>
     .form-container {

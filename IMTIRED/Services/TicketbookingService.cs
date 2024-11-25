@@ -19,5 +19,6 @@ namespace IMTIRED.Services
             await _context.Ticketbookings.AddAsync(newTicketbooking);
             await _context.SaveChangesAsync();
         }
+
     }
 }

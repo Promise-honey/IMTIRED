@@ -1,0 +1,132 @@
+﻿@using IMTIRED.Models
+@using IMTIRED.Services
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@using IMTIRED.Utilities
+@inject UserSession UserSession
+
+@page "/shop"
+
+<PageTitle>Shop - WildHaven Zoo</PageTitle>
+
+<div class="shop-container">
+    <h3>Shop - Membership Options</h3>
+
+    <div class="membership-options">
+        <div class="membership-option">
+            <h4>Standard Membership</h4>
+            <p>Get unlimited access to the zoo, discounts on food and merchandise, and special members-only events.</p>
+            <p><strong>Price:</strong> £50 per year</p>
+            <button @onclick="NavigateToCheckout">Join Now</button>
+        </div>
+        <div class="membership-option">
+            <h4>Family Membership</h4>
+            <p>Enjoy unlimited access for up to 4 family members, along with exclusive family events and discounts.</p>
+            <p><strong>Price:</strong> £120 per year</p>
+            <button @onclick="NavigateToCheckout">Join Now</button>
+        </div>
+        <div class="membership-option">
+            <h4>VIP Membership</h4>
+            <p>Get all the perks of the Standard and Family memberships, plus VIP access to animal experiences and priority booking for special events.</p>
+            <p><strong>Price:</strong> £250 per year</p>
+            <button @onclick="NavigateToCheckout">Join Now</button>
+        </div>
+    </div>
+
+    <div class="membership-benefits">
+        <h4>Why Become a Member?</h4>
+        <ul>
+            <li>Unlimited access to WildHaven Zoo.</li>
+            <li>Exclusive members-only events and experiences.</li>
+            <li>Discounts on food, merchandise, and special events.</li>
+            <li>Free or discounted entry to seasonal events and exhibits.</li>
+        </ul>
+        <p>Join now and support wildlife conservation efforts while enjoying all these incredible benefits!</p>
+    </div>
+</div>
+
+@code {
+    // Navigate to the checkout page when the "Join Now" button is clicked
+    private void NavigateToCheckout()
+    {
+        // Redirect to a checkout or payment page (you can update this with the correct URL)
+        NavigationManager.NavigateTo("/checkout");
+    }
+}
+
+<style>
+    .shop-container {
+        padding: 2rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .membership-options {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+    }
+
+    .membership-option {
+        background-color: #5B7553;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        width: 300px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .membership-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .membership-option h4 {
+            margin-bottom: 1rem;
+        }
+
+        .membership-option p {
+            margin-bottom: 1rem;
+        }
+
+    .membership-benefits {
+        margin-top: 3rem;
+        padding: 1rem;
+        background-color: #f4f4f4;
+        border-radius: 0.5rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+        .membership-benefits h4 {
+            margin-bottom: 1rem;
+        }
+
+        .membership-benefits ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+            .membership-benefits ul li {
+                margin: 0.5rem 0;
+            }
+
+    .button {
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        background-color: #D4A017;
+        color: white;
+        border-radius: 0.5rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .button:hover {
+            background-color: #B78913;
+        }
+</style>

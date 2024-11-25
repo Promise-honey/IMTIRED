@@ -3,43 +3,42 @@
 @using IMTIRED.Services
 @inject CustomerService CustomerService
 @inject NavigationManager NavigationManager
+@using IMTIRED.Utilities
 @inject UserSession UserSession
 
-<h3>Log In</h3>
-
-<EditForm Model="newCustomer" OnValidSubmit="HandleValidSubmit" FormName="LoginForm">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div class="form-field">
-        <label>Username:</label>
-        <InputText @bind-Value="newCustomer.Username" />
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <img src="~/images/zoo_logo.png" alt="WildHaven Zoo" class="login-logo" />
+            <h3>Welcome to WildHaven Zoo</h3>
+        </div>
+        <EditForm Model="newCustomer" OnValidSubmit="HandleValidSubmit" FormName="LoginForm">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-field">
+                <label for="username">Username:</label>
+                <InputText id="username" @bind-Value="newCustomer.Username" class="form-control" />
+            </div>
+            <div class="form-field">
+                <label for="password">Password:</label>
+                <InputText id="password" @bind-Value="password" type="password" class="form-control" />
+            </div>
+            <div class="form-field">
+                <InputCheckbox @bind-Value="rememberMe" />
+                <label for="remember-me">Remember Me</label>
+            </div>
+            <div class="form-field">
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </div>
+            <div class="form-field">
+                <a href="/modify?username=@newCustomer.Username" class="forgot-password">Forgot Password?</a>
+            </div>
+            <div class="form-field">
+                <a href="/register" class="register-link">New User? Register here</a>
+            </div>
+        </EditForm>
     </div>
-
-    <div class="form-field">
-        <label>Password:</label>
-        <InputText @bind-Value="password" type="password" />
-    </div>
-
-    <div class="form-field">
-        <label>
-            <InputCheckbox @bind-Value="rememberMe" />
-            Remember Me
-        </label>
-    </div>
-
-    <div class="form-field">
-        <button type="submit">Log In</button>
-    </div>
-
-    <div class="form-field">
-        <a href="/modify?username=@newCustomer.Username">Forgot Password?</a>
-    </div>
-
-    <div class="form-field">
-        <a href="/register">New User? Register here</a>
-    </div>
-</EditForm>
+</div>
 
 @code {
     private Customer newCustomer = new Customer();
@@ -51,17 +50,13 @@
         if (!string.IsNullOrEmpty(newCustomer.Username) && !string.IsNullOrEmpty(password))
         {
             var loggedInCustomer = await CustomerService.LogIn(newCustomer);
-
             if (loggedInCustomer == null)
             {
                 Console.WriteLine("Invalid login attempt.");
             }
             else
             {
-                // Store logged-in customer details
-                UserSession.UserId = loggedInCustomer.CustomerId; // Save user session information
-
-                // Optionally, store the username in a cookie if 'Remember Me' is checked
+                UserSession.UserId = loggedInCustomer.CustomerId;
                 if (rememberMe)
                 {
                     var options = new CookieOptions
@@ -72,8 +67,6 @@
                         };
                     // Example: Cookie.Set("user", loggedInCustomer.Username, options);
                 }
-
-                // Redirect user to their personalized home page
                 NavigationManager.NavigateTo($"/home/{loggedInCustomer.Username}");
             }
         }
@@ -85,39 +78,75 @@
 }
 
 <style>
-    /* Styling for the form */
-    form {
-        margin-top: 3rem; /* Adds space above the form */
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('login-background.jpg');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login-card {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .login-logo {
+        max-width: 100px;
+        margin-bottom: 1rem;
     }
 
     .form-field {
-        margin-bottom: 1rem; /* Adds space between form fields */
+        margin-bottom: 1.25rem;
     }
 
-    h3 {
-        margin-top: 1rem; /* Adds space above the heading */
-    }
-
-    button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 15px;
-        cursor: pointer;
+    .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
         font-size: 1rem;
-        border-radius: 5px;
     }
 
-        button:hover {
-            background-color: #0056b3;
+    .btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: #5B7553;
+        color: #fff;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #4A6244;
         }
 
-    a {
-        color: #007bff;
+    .forgot-password,
+    .register-link {
+        color: #5B7553;
         text-decoration: none;
+        font-size: 0.875rem;
     }
 
-        a:hover {
+        .forgot-password:hover,
+        .register-link:hover {
             text-decoration: underline;
         }
 </style>

@@ -1,4 +1,5 @@
 ﻿using System;
+using IMTIRED.Models;  // Make sure Room is defined in the Models namespace
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
@@ -18,9 +19,9 @@ public partial class TlS2302374webContext : DbContext
 
     public virtual DbSet<Attraction> Attractions { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public DbSet<Customer> Customers { get; set; }
 
-    public virtual DbSet<Room> Rooms { get; set; }
+    public DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<Roombooking> Roombookings { get; set; }
 
