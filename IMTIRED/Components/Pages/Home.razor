@@ -26,21 +26,33 @@
 <!-- Info Cards Section -->
 <div class="info-cards">
     <div class="info-card">
-        <i class="fa fa-clock"></i>
+        <img src="images/clock.png" alt="Clock Icon" class="info-card-image" />
         <p>Opening Times</p>
+        <p class="card-description">We are open daily from 9 AM to 6 PM. Visit us and enjoy a full day of adventure!</p>
     </div>
     <div class="info-card">
-        <i class="fa fa-ticket-alt"></i>
+        <img src="images/tickets.png" alt="Ticket Icon" class="info-card-image" />
         <p>Plan Your Visit</p>
+        <p class="card-description">Get your tickets online and skip the queue! Check our website for ticket prices and more.</p>
     </div>
     <div class="info-card">
-        <i class="fa fa-map-signs"></i>
+        <img src="images/map.png" alt="Map Icon" class="info-card-image" />
         <p>Zoo Map</p>
+        <p class="card-description">Download our interactive zoo map to plan your visit and explore our attractions.</p>
     </div>
     <div class="info-card">
-        <i class="fa fa-location-arrow"></i>
+        <img src="images/location.png" alt="Location Icon" class="info-card-image" />
         <p>Location</p>
+        <p class="card-description">We are located at the heart of the city. Find us easily using Google Maps or our location guide.</p>
     </div>
+</div>
+
+
+<!-- Membership & Ticket Section -->
+<div class="membership">
+    <h2>Become a WildHaven Member</h2>
+    <p>Enjoy exclusive benefits, including free entry, discounts on events, and more!</p>
+    <a href="/shop" class="cta-button">Join Now</a>
 </div>
 
 <!-- Upcoming Events Section -->
@@ -50,7 +62,6 @@
         <li><strong>Wild Animal Parade:</strong> December 10, 2024</li>
         <li><strong>Zoo Night Safari:</strong> January 5, 2025</li>
         <li><strong>Animal Feeding Time:</strong> February 14, 2025</li>
-        <!-- Add more events here -->
     </ul>
 </div>
 
@@ -71,34 +82,6 @@
 }
 
 <style>
-    /* Upcoming Events */
-    .upcoming-events {
-        margin-top: 2rem;
-        background-color: #4A6244;
-        padding: 2rem;
-        border-radius: 0.5rem;
-        color: white;
-    }
-
-        .upcoming-events h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .upcoming-events ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .upcoming-events li {
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-        }
-
-            .upcoming-events li strong {
-                color: #D4A017;
-            }
-
     /* Hero Section */
     .hero {
         position: relative;
@@ -183,6 +166,74 @@
             font-weight: 500;
             margin-top: 0.5rem;
         }
+
+        .info-card .card-description {
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            color: white;
+        }
+
+    .info-card-image {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 0.5rem;
+    }
+
+
+    /* Membership Section */
+    .membership {
+        background-color: #4A6244;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        color: white;
+        margin-top: 2rem;
+    }
+
+        .membership h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .membership .cta-button {
+            background-color: #D4A017;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 1.125rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .membership .cta-button:hover {
+                background-color: #B78913;
+            }
+
+    /* Upcoming Events Section */
+    .upcoming-events {
+        margin-top: 2rem;
+        background-color: #4A6244;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        color: white;
+    }
+
+        .upcoming-events h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .upcoming-events ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .upcoming-events li {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+            .upcoming-events li strong {
+                color: #D4A017;
+            }
 </style>
-
-
