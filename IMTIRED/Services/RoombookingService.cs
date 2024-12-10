@@ -14,36 +14,48 @@ namespace IMTIRED.Services
 
         public async Task AddRoombookingAsync(Customer customer, Room room, DateTime startDate, int duration)
         {
-            Roombooking newRoombooking = new Roombooking();
-            newRoombooking.Customer = customer;
-            newRoombooking.Room = room;
-            newRoombooking.StartDate = startDate;
-            newRoombooking.EndDate = startDate.AddDays(duration);
-            newRoombooking.BookingStatus = "Pending";  // Example: Default BookingStatus if not provided
-            newRoombooking.TotalPrice = 0.0m; // Example: Set a default TotalPrice if needed
+            Roombooking newRoombooking = new Roombooking
+            {
+                Customer = customer,
+                Room = room,
+                CheckInDate = DateOnly.FromDateTime(startDate),
+                CheckOutDate = DateOnly.FromDateTime(startDate.AddDays(duration)),
+                BookingStatus = "Pending", // Default status
+                TotalPrice = 0.0m // Default price, adjust as needed
+            };
 
-            var temp = await _context.Roombookings.Where(r => r.CustomerId == customer.CustomerId &&
-                                                                 r.RoomId == room.RoomId &&
-                                                                 r.StartDate == newRoombooking.StartDate).FirstOrDefaultAsync();
-            if (temp == null)
+            // Check if room is already booked on the selected date
+            var existingBooking = await _context.Roombookings
+                .Where(r => r.CustomerId == customer.CustomerId &&
+                            r.RoomId == room.RoomId &&
+                            r.CheckInDate == DateOnly.FromDateTime(startDate))
+                .FirstOrDefaultAsync();
+
+            if (existingBooking == null)
             {
                 await _context.Roombookings.AddAsync(newRoombooking);
                 await _context.SaveChangesAsync();
             }
             else
             {
-                Console.WriteLine("Could not book room");
+                // You can choose to handle this scenario as per your business logic
+                Console.WriteLine("Room already booked for the selected date.");
             }
         }
 
         public async Task<List<Roombooking>> GetRoombookingsFromCustomer(Customer customer)
         {
-            return await _context.Roombookings.Where(rb => rb.CustomerId == customer.CustomerId).ToListAsync();
+            return await _context.Roombookings
+                .Where(rb => rb.CustomerId == customer.CustomerId)
+                .ToListAsync();
         }
 
-        public async Task<List<Roombooking>> GetRoombookingsFromCustomer(int id)
+        // Overload to fetch bookings by customer ID
+        public async Task<List<Roombooking>> GetRoombookingsFromCustomer(int customerId)
         {
-            return await _context.Roombookings.Where(rb => rb.CustomerId == id).ToListAsync();
+            return await _context.Roombookings
+                .Where(rb => rb.CustomerId == customerId)
+                .ToListAsync();
         }
 
         public async Task DeleteBooking(Roombooking roombooking)
@@ -52,12 +64,25 @@ namespace IMTIRED.Services
             await _context.SaveChangesAsync();
         }
 
-        // Method to fetch a room by its RoomNumber
+        // Fetch room by number
         public async Task<Room?> GetRoomByNumber(string roomNumber)
         {
+            if (int.TryParse(roomNumber, out int parsedRoomNumber))
+            {
+                return await _context.Rooms
+                    .FirstOrDefaultAsync(r => r.RoomNumber == parsedRoomNumber);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid room number format. Room number must be a valid integer.");
+            }
+        }
+
+        // Fetch room by room type (new method to fetch by type)
+        public async Task<Room?> GetRoomByType(string roomType)
+        {
             return await _context.Rooms
-                                 .FirstOrDefaultAsync(r => r.RoomNumber == roomNumber);
+                .FirstOrDefaultAsync(r => r.RoomType.Equals(roomType, StringComparison.OrdinalIgnoreCase));
         }
     }
 }
-

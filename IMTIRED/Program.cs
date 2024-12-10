@@ -26,8 +26,9 @@ namespace IMTIRED
             builder.Services.AddScoped<RoombookingService>();
             builder.Services.AddScoped<AttractionService>();
             builder.Services.AddScoped<TicketService>();
-            builder.Services.AddScoped<TicketbookingService>();
             builder.Services.AddScoped<UserSession>();
+            builder.Services.AddScoped<TicketbookingService>();
+
 
             var app = builder.Build();
 

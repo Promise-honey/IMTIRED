@@ -14,22 +14,25 @@
 
     <div class="membership-options">
         <div class="membership-option">
+            <img src="images/standard-membership.jpg" alt="Standard Membership" class="membership-img" />
             <h4>Standard Membership</h4>
             <p>Get unlimited access to the zoo, discounts on food and merchandise, and special members-only events.</p>
             <p><strong>Price:</strong> £50 per year</p>
-            <button @onclick="NavigateToCheckout">Join Now</button>
+            <button @onclick="NavigateToCheckout" class="join-button">Join Now</button>
         </div>
         <div class="membership-option">
+            <img src="images/family-membership.jpg" alt="Family Membership" class="membership-img" />
             <h4>Family Membership</h4>
             <p>Enjoy unlimited access for up to 4 family members, along with exclusive family events and discounts.</p>
             <p><strong>Price:</strong> £120 per year</p>
-            <button @onclick="NavigateToCheckout">Join Now</button>
+            <button @onclick="NavigateToCheckout" class="join-button">Join Now</button>
         </div>
         <div class="membership-option">
+            <img src="images/vip-membership.jpg" alt="VIP Membership" class="membership-img" />
             <h4>VIP Membership</h4>
             <p>Get all the perks of the Standard and Family memberships, plus VIP access to animal experiences and priority booking for special events.</p>
             <p><strong>Price:</strong> £250 per year</p>
-            <button @onclick="NavigateToCheckout">Join Now</button>
+            <button @onclick="NavigateToCheckout" class="join-button">Join Now</button>
         </div>
     </div>
 
@@ -93,16 +96,28 @@
             margin-bottom: 1rem;
         }
 
+    .membership-img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
     .membership-benefits {
         margin-top: 3rem;
-        padding: 1rem;
+        padding: 1.5rem;
         background-color: #f4f4f4;
         border-radius: 0.5rem;
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
         text-align: left;
+        transition: background-color 0.3s ease;
     }
+
+        .membership-benefits:hover {
+            background-color: #e0e0e0;
+        }
 
         .membership-benefits h4 {
             margin-bottom: 1rem;
@@ -117,16 +132,19 @@
                 margin: 0.5rem 0;
             }
 
-    .button {
+    .join-button {
         text-decoration: none;
         padding: 0.75rem 1.5rem;
         background-color: #D4A017;
         color: white;
         border-radius: 0.5rem;
         transition: background-color 0.3s ease;
+        border: none;
+        cursor: pointer;
+        margin-top: 1rem;
     }
 
-        .button:hover {
+        .join-button:hover {
             background-color: #B78913;
         }
 </style>

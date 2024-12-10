@@ -1,0 +1,139 @@
+﻿@page "/blog"
+
+<!-- Navigation Bar -->
+<nav style="background-color: #2D3A2B; color: white; padding: 20px 10px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="font-size: 24px; font-weight: bold;">WildHaven Blog</div>
+    <ul style="list-style: none; display: flex; margin: 0; padding: 0; gap: 20px;">
+        <li><a href="/" style="color: white; text-decoration: none;">Home</a></li>
+        <li><a href="/animals" style="color: white; text-decoration: none;">Animals & Exhibits</a></li>
+        <li><a href="/news" style="color: white; text-decoration: none;">Zoo News</a></li>
+        <li><a href="/contact" style="color: white; text-decoration: none;">Contact Us</a></li>
+    </ul>
+    <button style="background-color: #F9A825; color: white; border: none; padding: 10px 15px; font-size: 16px; border-radius: 5px;">Book Your Tickets</button>
+</nav>
+
+<!-- Header Section -->
+<header style="position: relative; background: url('/images/bg.jpeg') no-repeat center center; background-size: cover; height: 350px; color: white; text-align: center; padding-top: 120px;">
+    <h1 style="font-size: 48px; text-shadow: 2px 2px 5px rgba(0,0,0,0.7);">Blog & Stories</h1>
+    <p style="font-size: 20px; margin-top: 10px;">Explore our latest updates, conservation stories, and behind-the-scenes action!</p>
+</header>
+
+
+<!-- Featured Post Section -->
+<section style="padding: 40px 10px; background-color: #F2F2F2;">
+    <div style="background-color: white; color: #333; padding: 30px; border-radius: 8px; box-shadow: 0px 5px 15px rgba(0,0,0,0.2); margin-bottom: 30px; display: flex; gap: 20px;">
+        <div style="flex: 1; max-width: 300px;">
+            <img src="images/Imaage uno.png" alt="Featured Post" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0px 4px 8px rgba(0,0,0,0.1);">
+        </div>
+        <div style="flex: 2;">
+            <h2 style="font-size: 32px; color: #2D3A2B;">@BlogPosts[0].Title</h2>
+            <p style="font-size: 18px; color: #555;">@BlogPosts[0].Summary</p>
+            <a href="/blog/@BlogPosts[0].UrlSlug" style="font-size: 18px; color: #F9A825; text-decoration: none; font-weight: bold;">Read more &rarr;</a>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Posts Section -->
+<section style="padding: 40px 10px; background-color: #F9F9F9;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px;">
+        @foreach (var post in BlogPosts.Skip(1))
+        {
+            <div style="background-color: white; color: #333; padding: 20px; border-radius: 8px; box-shadow: 0px 5px 10px rgba(0,0,0,0.1); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+
+                @if (post.UrlSlug == "wildlife-conservation")
+                {
+                    <img src="images/Imaage Dos.png" alt="Wildlife Conservation" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+                }
+
+                @if (post.UrlSlug == "behind-the-scenes")
+                {
+                    <img src="images/imaage tres.jpg" alt="Behind the Scenes" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+                }
+
+                @if (post.UrlSlug == "fascinating-world-of-birds")
+                {
+                    <img src="images/Imaage quatro.png" alt="Fascinating World of Birds" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+                }
+
+                @if (post.UrlSlug == "zoo-education-programs")
+                {
+                    <img src="images/Imaage seise.png" alt="Zoo Education Programs" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+                }
+
+                <h3 style="font-size: 26px; color: #2D3A2B;">@post.Title</h3>
+                <p style="font-size: 16px; color: #777;">@post.PublishedDate.ToString("MMMM dd, yyyy")</p>
+                <p style="font-size: 18px; color: #555;">@post.Summary</p>
+                <a href="/blog/@post.UrlSlug" style="font-size: 16px; color: #F9A825; text-decoration: none;">Read more &rarr;</a>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div style="text-align: center; margin-top: 30px;">
+        <button style="background-color: #F9A825; color: white; border: none; padding: 12px 18px; margin: 0 8px; border-radius: 5px;">Previous</button>
+        <button style="background-color: #F9A825; color: white; border: none; padding: 12px 18px; margin: 0 8px; border-radius: 5px;">Next</button>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer style="background-color: #2D3A2B; color: white; text-align: center; padding: 30px 10px;">
+    <h2 style="font-size: 36px; font-weight: bold; color: #F9A825;">Join Our Community!</h2>
+    <p style="font-size: 18px; margin-top: 10px; color: #E0E0E0;">Stay connected with us for more updates, conservation stories, and upcoming events. Become a WildHaven member today!</p>
+
+    <!-- Subscribe Button -->
+    <div style="display: inline-block;">
+        <a href="/shop" style="text-decoration: none;">
+            <button style="background-color: #F9A825; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 30px; cursor: pointer; transition: background-color 0.3s ease, transform 0.3s ease;">
+                Subscribe Now
+            </button>
+        </a>
+    </div>
+
+    <p style="margin-top: 20px; font-size: 14px; color: #E0E0E0;">Contact Us: info@wildhavenzoo.com | Call: 123-456-7890</p>
+</footer>
+
+
+<style>
+    /* Hover Effect for the Subscribe Button */
+    footer button:hover {
+        background-color: #C17900; /* Darker shade of yellow for hover */
+        transform: scale(1.05); /* Slightly enlarge the button on hover */
+    }
+
+    footer button:active {
+        background-color: #9E6F00; /* Even darker shade for active state */
+        transform: scale(1); /* Return to normal size on click */
+    }
+
+    footer h2 {
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.3); /* Adding subtle shadow to the header for a pop effect */
+    }
+
+    footer p {
+        max-width: 600px;
+        margin: 10px auto;
+        line-height: 1.5; /* Improve readability */
+    }
+</style>
+
+
+@code {
+    // Blog Post model to represent each post
+    public class BlogPost
+    {
+        public string Title { get; set; }
+        public string Summary { get; set; }
+        public DateTime PublishedDate { get; set; }
+        public string UrlSlug { get; set; } // To generate links for individual blog post
+    }
+
+    // Sample blog posts with distinct images for each
+    private List<BlogPost> BlogPosts = new List<BlogPost>
+    {
+        new BlogPost { Title = "The Importance of Wildlife Conservation", Summary = "Learn how conservation efforts are crucial to protecting endangered species.", PublishedDate = new DateTime(2024, 12, 5), UrlSlug = "wildlife-conservation" },
+        new BlogPost { Title = "Behind the Scenes at WildHaven", Summary = "Get a peek behind the scenes at how we care for our animals.", PublishedDate = new DateTime(2024, 12, 1), UrlSlug = "behind-the-scenes" },
+        new BlogPost { Title = "The Fascinating World of Birds", Summary = "Dive into the amazing behaviors and characteristics of birds at WildHaven.", PublishedDate = new DateTime(2024, 11, 20), UrlSlug = "fascinating-world-of-birds" },
+        new BlogPost { Title = "Zoo Education Programs: Making a Difference", Summary = "Discover how our educational programs are making a lasting impact on young minds.", PublishedDate = new DateTime(2024, 11, 15), UrlSlug = "zoo-education-programs" },
+        new BlogPost { Title = "A Day in the Life of a Zookeeper", Summary = "Experience a day in the life of a zookeeper at WildHaven.", PublishedDate = new DateTime(2024, 11, 10), UrlSlug = "day-in-the-life-of-a-zookeeper" }
+    };
+}

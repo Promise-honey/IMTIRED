@@ -69,8 +69,8 @@ namespace IMTIRED.Services
             else
             {
                 // Use the PasswordHasher to hash the password
-                var passwordHasher = new PasswordHasher<Customer>();
-                newCustomer.Password = passwordHasher.HashPassword(newCustomer, newCustomer.Password);
+                var passwordHasher = new PasswordHasher<Customer>();  // Add this line
+                newCustomer.Password = passwordHasher.HashPassword(newCustomer, newCustomer.Password);  // Store hashed password
 
                 // Add customer if validation passes
                 await AddCustomerAsync(newCustomer);
@@ -85,3 +85,4 @@ namespace IMTIRED.Services
         }
     }
 }
+

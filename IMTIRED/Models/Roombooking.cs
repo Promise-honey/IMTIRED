@@ -11,12 +11,13 @@ public partial class Roombooking
 
     public int RoomId { get; set; }
 
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateOnly? CheckInDate { get; set; }   // Change from non-nullable to nullable
+    public DateOnly? CheckOutDate { get; set; }  // Change from non-nullable to nullable
 
-    public decimal? TotalPrice { get; set; } // Nullable type for TotalPrice
 
-    public string? BookingStatus { get; set; } // Nullable type for BookingStatus
+    public decimal? TotalPrice { get; set; }
+
+    public string? BookingStatus { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 

@@ -10,6 +10,4 @@ public partial class Attraction
     public string? Name { get; set; }
 
     public float? Price { get; set; }
-
-    public virtual ICollection<Ticket> Tickets { get; set; } = new List<Ticket>();
 }

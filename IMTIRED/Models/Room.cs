@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IMTIRED.Models
+namespace IMTIRED.Models;
+
+public partial class Room
 {
-    public partial class Room
-    {
-        public int RoomId { get; set; }
+    public int RoomId { get; set; }
 
-        public string RoomNumber { get; set; } = null!;  // Room number as string
+    public int RoomNumber { get; set; }
 
-        public string RoomType { get; set; } = null!;  // Type of room (e.g., "Single", "Double")
+    public string RoomType { get; set; } = null!;
 
-        public int Capacity { get; set; }  // Room capacity (number of people it can accommodate)
+    public int Capacity { get; set; }
 
-        public decimal? PricePerNight { get; set; }  // Price per night (nullable)
+    public decimal? PricePerNight { get; set; }
 
-        public bool? IsAvailable { get; set; }  // Room availability (nullable)
+    public bool? IsAvailable { get; set; }
 
-        // Navigation property for room bookings
-        public virtual ICollection<Roombooking> Roombookings { get; set; } = new List<Roombooking>();
-    }
+    public virtual ICollection<Roombooking> Roombookings { get; set; } = new List<Roombooking>();
 }

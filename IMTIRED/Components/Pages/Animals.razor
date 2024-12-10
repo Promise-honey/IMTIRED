@@ -1,17 +1,198 @@
 ﻿@page "/animals"
 
-<h3>Animals & Exhibits</h3>
+@inherits LayoutComponentBase
 
-<p>Welcome to the WildHaven Zoo! Here you can learn more about our amazing animals and exhibits.</p>
+<main>
+    <header class="hero">
+        <img src="/images/hero-animal.jpg" alt="Wildlife Image" class="hero-image" />
+        <div class="hero-content">
+            <h1>Discover the Wild Side of WildHaven Zoo</h1>
+            <p>Your adventure starts here, with incredible animals from around the world!</p>
+        </div>
+    </header>
 
-<!-- Example of animal list (could be dynamic or static data) -->
-<ul>
-    <li>Lions</li>
-    <li>Tigers</li>
-    <li>Elephants</li>
-    <li>Giraffes</li>
-</ul>
+    <section class="animal-section">
+        <h2 class="section-title">Featured Animals</h2>
+        <div class="animal-list">
+            <div class="animal-card">
+                <img src="/images/LION.jpg" alt="Lions" class="animal-img" />
+                <h3>Lions</h3>
+                <p>The king of the jungle, lions are majestic and powerful animals, known for their strength and social structure.</p>
+                <a href="/animals/lions" class="cta-link">Learn More</a>
+            </div>
+            <div class="animal-card">
+                <img src="/images/elephant.jpg" alt="Elephant" class="animal-img" />
+                <h3>Elephants</h3>
+                <p>Elephants are the largest land mammals, known for their intelligence, social behavior, and memory.</p>
+                <a href="/animals/elephants" class="cta-link">Learn More</a>
+            </div>
+            <div class="animal-card">
+                <img src="/images/giraffe.jpg" alt="Giraffe" class="animal-img" />
+                <h3>Giraffes</h3>
+                <p>With their long necks and legs, giraffes are one of the tallest animals in the world, reaching up to 18 feet!</p>
+                <a href="/animals/giraffes" class="cta-link">Learn More</a>
+            </div>
+        </div>
+    </section>
 
-@code {
-    // Your code logic for displaying animal data can go here.
-}
+    <section class="zoo-exhibits">
+        <h2 class="section-title">Explore Our Exhibits</h2>
+        <div class="exhibit-list">
+            <div class="exhibit-card">
+                <h3>Rainforest Adventure</h3>
+                <img src="/images/rainforest-image.png" alt="Rainforest Exhibit" class="exhibit-img" />
+                <p>Step into the jungle and meet exotic animals like monkeys, snakes, and vibrant birds.</p>
+                <a href="/animals/rainforest" class="cta-link">Explore Now</a>
+            </div>
+            <div class="exhibit-card">
+                <h3>Savannah Safari</h3>
+                <img src="/images/savannah-image.png" alt="Savannah Safari Exhibit" class="exhibit-img" />
+                <p>Experience the open plains with majestic lions, giraffes, and zebras roaming freely.</p>
+                <a href="/animals/savannah" class="cta-link">Explore Now</a>
+            </div>
+            <div class="exhibit-card">
+                <h3>Ocean World</h3>
+                <img src="/images/ocean-image.png" alt="Ocean World Exhibit" class="exhibit-img" />
+                <p>Discover the wonders of the ocean, home to penguins, sea turtles, and the mysterious shark.</p>
+                <a href="/animals/ocean-world" class="cta-link">Explore Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Plan Your Visit Today!</h2>
+        <p>Join us at WildHaven Zoo for an unforgettable adventure. Book your tickets now and discover the wonders of the wild!</p>
+        <a href="/book-options" class="cta-button">Book Tickets</a>
+    </section>
+</main>
+
+<style>
+    /* Hero Section */
+    .hero {
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+    }
+
+    .hero-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .hero-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: black;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .hero p {
+        font-size: 1.5rem;
+        margin-top: 10px;
+    }
+
+    /* Section Titles */
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #D4A017;
+        margin-top: 2rem;
+    }
+
+    /* Animal List Section */
+    .animal-list {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .animal-card {
+        background-color: #5B7553;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .animal-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    .animal-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .cta-link {
+        display: inline-block;
+        margin-top: 1rem;
+        background-color: #D4A017;
+        padding: 0.75rem 1.5rem;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+        .cta-link:hover {
+            background-color: #B78913;
+        }
+
+    /* Exhibit List Section */
+    .exhibit-list {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .exhibit-card {
+        background-color: #5B7553;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        width: 300px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .exhibit-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .cta-button {
+        display: inline-block;
+        background-color: #D4A017;
+        color: white;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 2rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .cta-button:hover {
+            background-color: #B78913;
+        }
+</style>

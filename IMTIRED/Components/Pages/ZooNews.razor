@@ -1,1 +1,65 @@
 ﻿@page "/zoo-news"
+
+<!-- Navigation Bar -->
+<nav style="background-color: #4A6244; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="font-size: 24px; font-weight: bold;">WildHaven</div>
+    <ul style="list-style: none; display: flex; margin: 0; padding: 0; gap: 15px;">
+        <li><a href="/animals" style="color: white; text-decoration: none;">Home</a></li>
+        <li><a href="/animals" style="color: white; text-decoration: none;">Animals & Exhibits</a></li>
+        <li><a href="/news" style="color: white; text-decoration: none;">Zoo News & Blog</a></li>
+        <li><a href="/contact" style="color: white; text-decoration: none;">Contact Us</a></li>
+    </ul>
+    <button style="background-color: white; color: #4A6244; border: none; padding: 10px 15px; font-size: 16px; border-radius: 5px;">Book Your Tickets</button>
+</nav>
+
+<!-- Header Section -->
+<header style="position: relative; background: url('your-header-image.jpg') no-repeat center center/cover; height: 300px; color: black; text-align: center; padding-top: 100px;">
+    <h1 style="font-size: 48px; text-shadow: 2px 2px 5px #000;">News</h1>
+</header>
+
+<!-- News Section with Background Image -->
+<section style="padding: 20px; background: url('C:/Users/S2302374/OneDrive - Notre Dame Catholic Sixth Form College/T-Level Y13/IMTIRED/IMTIRED/wwwroot/images/bg%203.jpg') no-repeat center center/cover; background-size: cover;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+        @foreach (var article in NewsArticles)
+        {
+            <div style="background-color: #4A6244; color: white; padding: 15px; border-radius: 10px; flex: 1 1 calc(33% - 20px); min-width: 300px;">
+                <h3>@article.Title</h3>
+                <p>@article.Description</p>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button style="background-color: black; color:white ; border: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px;">1</button>
+        <button style="background-color: black ; color: white; border: none; padding: 10px 15px; margin: 0 5px; border-radius: 5px;">2</button>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<footer style="background-color: #4A6244; color: white; text-align: center; padding: 20px;">
+    <h2>Join Us for a Day of Fun!</h2>
+    <p>Bring your family and friends to WildHaven for a day full of adventure, learning, and lots of smiles!</p>
+    <button style="background-color: white; color: #4A6244; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; cursor: pointer;">Book Your Tickets</button>
+    <p style="margin-top: 20px; font-size: 14px;">Contact Us: info@wildhavenzoo.com | Call: 123-456-7890</p>
+</footer>
+
+@code {
+    // Class to represent news articles
+    public class NewsArticle
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+    }
+
+    // Sample news articles
+    private List<NewsArticle> NewsArticles = new List<NewsArticle>
+    {
+        new NewsArticle { Title = "New Lion Cubs at WildHaven", Description = "Exciting news! Our lion pride has expanded with the arrival of two adorable cubs." },
+        new NewsArticle { Title = "Giraffe Feeding Time for Visitors", Description = "Have a close-up experience feeding our gentle giraffes!" },
+        new NewsArticle { Title = "A Day in the Life of a Zookeeper", Description = "Explore the behind-the-scenes work of our zookeepers." },
+        new NewsArticle { Title = "Conservation Efforts for Endangered Elephants", Description = "Join our initiative to protect elephants with your support!" },
+        new NewsArticle { Title = "Penguin Habitat Gets a Major Upgrade", Description = "Our penguin habitat is now better than ever for our waddling friends." },
+        new NewsArticle { Title = "Reptile Room: New Species on Display", Description = "Check out our latest additions, including rare frogs and lizards!" }
+    };
+}

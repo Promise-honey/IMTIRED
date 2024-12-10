@@ -1,5 +1,4 @@
 ﻿using System;
-using IMTIRED.Models;  // Make sure Room is defined in the Models namespace
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Scaffolding.Internal;
@@ -19,9 +18,9 @@ public partial class TlS2302374webContext : DbContext
 
     public virtual DbSet<Attraction> Attractions { get; set; }
 
-    public DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Customer> Customers { get; set; }
 
-    public DbSet<Room> Rooms { get; set; }
+    public virtual DbSet<Room> Rooms { get; set; }
 
     public virtual DbSet<Roombooking> Roombookings { get; set; }
 
@@ -30,7 +29,10 @@ public partial class TlS2302374webContext : DbContext
     public virtual DbSet<Ticketbooking> Ticketbookings { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("name=MysqlConnection", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
+        => optionsBuilder.UseMySql(
+            "name=MySqlConnection",  // Ensure this is the same key in appsettings.json
+            Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.29-mysql"));
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -62,7 +64,6 @@ public partial class TlS2302374webContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(50);
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.Password).HasMaxLength(255);
-            entity.Property(e => e.PhoneNumber).HasMaxLength(15);
             entity.Property(e => e.Username).HasMaxLength(45);
         });
 
@@ -77,7 +78,6 @@ public partial class TlS2302374webContext : DbContext
             entity.Property(e => e.RoomId).HasColumnName("RoomID");
             entity.Property(e => e.IsAvailable).HasDefaultValueSql("'1'");
             entity.Property(e => e.PricePerNight).HasPrecision(10, 2);
-            entity.Property(e => e.RoomNumber).HasMaxLength(10);
             entity.Property(e => e.RoomType).HasMaxLength(50);
         });
 
@@ -114,25 +114,12 @@ public partial class TlS2302374webContext : DbContext
         {
             entity.HasKey(e => e.TicketId).HasName("PRIMARY");
 
-            entity.ToTable("ticket");
-
-            entity.HasIndex(e => e.AttractionId, "ticket_fk1_idx");
-
-            entity.HasIndex(e => e.TicketbookingId, "ticket_fk2_idx");
+            entity.ToTable("tickets");
 
             entity.Property(e => e.TicketId).HasColumnName("ticketId");
             entity.Property(e => e.AttractionId).HasColumnName("attractionId");
+            entity.Property(e => e.Price).HasPrecision(10, 2);
             entity.Property(e => e.TicketbookingId).HasColumnName("ticketbookingId");
-
-            entity.HasOne(d => d.Attraction).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.AttractionId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("ticket_fk1");
-
-            entity.HasOne(d => d.Ticketbooking).WithMany(p => p.Tickets)
-                .HasForeignKey(d => d.TicketbookingId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("ticket_fk2");
         });
 
         modelBuilder.Entity<Ticketbooking>(entity =>
