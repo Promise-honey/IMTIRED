@@ -1,0 +1,189 @@
+﻿@page "/animals/giraffes"
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giraffes: Tall and Awesome!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        .hero {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(70%);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1;
+        }
+
+            .hero-content h1 {
+                font-family: 'Fredoka One', cursive;
+                font-size: 4rem;
+                text-shadow: 3px 3px 0 #4b5c42;
+                margin-bottom: 20px;
+            }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .split-content {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            margin: 30px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+            .split-content:hover {
+                transform: scale(1.02);
+            }
+
+        .split-img {
+            width: 50%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .split-text {
+            width: 50%;
+            padding: 30px;
+            background-color: #B78913;
+        }
+
+            .split-text h2 {
+                font-family: 'Fredoka One', cursive;
+                color: white;
+            }
+
+        .fun-facts {
+            background-color: #4b5c42;
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+            .fun-facts h2 {
+                font-family: 'Fredoka One', cursive;
+                font-size: 3rem;
+                margin-bottom: 30px;
+            }
+
+        .facts-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+            .facts-list li {
+                background-color: rgba(255,255,255,0.2);
+                padding: 20px;
+                border-radius: 15px;
+                max-width: 300px;
+                text-align: center;
+                transition: transform 0.3s;
+            }
+
+                .facts-list li:hover {
+                    transform: rotate(5deg) scale(1.05);
+                }
+
+        .cta-section {
+            background-color: #4C724C;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: #4C724C;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+            .cta-button:hover {
+                background-color: #f0f8ff;
+                transform: scale(1.1);
+            }
+
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <img src="/images/giraffe-in-zoo.jpg" alt="Giraffes in the Wild" class="hero-image" />
+        <div class="hero-content">
+            <h1>GIRAFFE ADVENTURE!</h1>
+            <p>Get Ready to Meet the Coolest Tall Creatures on Earth!</p>
+        </div>
+    </header>
+
+    <section class="content-section">
+        <div class="split-content">
+            <img src="/images/giraffe.jpg" alt="Giraffe Eating from a Tree" class="split-img" />
+            <div class="split-text">
+                <h2>SUPER TALL SNACKERS!</h2>
+                <p>These awesome giants use their MEGA-LONG necks to munch on yummy leaves way up high in the trees! Imagine being so tall you can eat breakfast from the top of a house!</p>
+            </div>
+        </div>
+        <div class="split-content reverse">
+            <div class="split-text">
+                <h2>GIRAFFE SQUAD GOALS!</h2>
+                <p>Giraffes are total BFFs! They hang out in awesome groups of up to 15 buddies. Even though they're super tall, they're like gentle teddy bears with legs!</p>
+            </div>
+            <img src="/images/bg 3.jpg" alt="Giraffe Herd" class="split-img" />
+        </div>
+    </section>
+
+    <section class="fun-facts">
+        <h2>MIND-BLOWING GIRAFFE FACTS!</h2>
+        <ul class="facts-list">
+            <li>🦒 Giraffe necks are just like human necks - but SUPER-SIZED!</li>
+            <li>❤️ Their heart is HUGE - as heavy as a small dog!</li>
+            <li>🖌️ Every giraffe's spots are totally unique - like a cool animal painting!</li>
+        </ul>
+    </section>
+
+    <section class="cta-section">
+        <h2>MEET THE GIRAFFES!</h2>
+        <p>Are you ready for the MOST AWESOME animal adventure EVER?!</p>
+        <a href="/book-options" class="cta-button">VISIT NOW!</a>
+    </section>
+</body>
+</html>

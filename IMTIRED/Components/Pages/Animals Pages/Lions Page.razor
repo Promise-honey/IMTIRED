@@ -1,25 +1,176 @@
 ﻿@page "/animals/lions"
 
-<main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROAR! Lions: The COOLEST Cats Ever!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .hero {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(70%);
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: black;
+            z-index: 1;
+        }
+
+            .hero-content h1 {
+                font-family: 'Fredoka One', cursive;
+                font-size: 4.5rem;
+                text-shadow: 4px 4px 0 #4C724C;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+            }
+
+            .hero-content p {
+                font-size: 1.5rem;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .text-img {
+            display: flex;
+            align-items: center;
+            background-color: #4b5c42;
+            color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 30px 0;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+            transform: perspective(1000px);
+            transition: transform 0.3s;
+        }
+
+            .text-img:hover {
+                transform: scale(1.02) rotateY(5deg);
+            }
+
+        .content-text {
+            width: 50%;
+            padding: 30px;
+        }
+
+            .content-text h2 {
+                font-family: 'Fredoka One', cursive;
+                color: white;
+                font-size: 2.5rem;
+            }
+
+        .text-img img {
+            width: 50%;
+            height: 500px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .text-img:hover img {
+            transform: scale(1.1);
+        }
+
+        .video-section {
+            background-color: #4a4a4a;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+
+            .video-section h2 {
+                font-family: 'Fredoka One', cursive;
+                margin-bottom: 30px;
+                font-size: 3rem;
+            }
+
+            .video-section video {
+                max-width: 100%;
+                border-radius: 15px;
+                box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            }
+
+        .cta-section {
+            background-color: #4C724C;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+            .cta-section h2 {
+                font-family: 'Fredoka One', cursive;
+                font-size: 3.5rem;
+                margin-bottom: 30px;
+            }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: #4C724C;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s, background-color 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+            .cta-button:hover {
+                transform: scale(1.1) rotate(3deg);
+                background-color: #f0f0f0;
+            }
+
+    </style>
+</head>
+<body>
     <header class="hero">
-        <img src="/images/lion-hero.jpg" alt="Lions in the Wild" class="hero-image" />
+        <img src="/images/lion-in-zoo.jpg" alt="Lions in the Wild" class="hero-image" />
         <div class="hero-content">
-            <h1>Lions: The King of the Jungle</h1>
-            <p>Explore the life of lions, their pride, and the savannah they call home.</p>
+            <h1>ROAR! LION POWER!</h1>
+            <p>Get Ready for the WILDEST Animal Adventure EVER!</p>
         </div>
     </header>
 
     <section class="content-section">
         <div class="text-img">
             <div class="content-text">
-                <h2>Life in the Pride</h2>
-                <p>Lions live in social groups known as prides, which include females, their cubs, and a dominant male. They are renowned for their majestic mane and formidable hunting skills.</p>
+                <h2>LION SQUAD GOALS!</h2>
+                <p>Lions are like the ULTIMATE FAMILY! They hang out in AWESOME groups called prides. Imagine having a whole family of SUPER COOL cats with AMAZING hair (that's their awesome mane)! 🦁</p>
             </div>
-            <img src="/images/lion-pride.jpg" alt="Lion Pride" />
+            <img src="/images/LION.jpg" alt="Lion Pride" />
         </div>
 
         <div class="video-section">
-            <h2>Watch a Lion Hunt</h2>
+            <h2>LION HUNT ACTION!</h2>
             <video controls>
                 <source src="/videos/lion-hunt.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -28,7 +179,8 @@
     </section>
 
     <section class="cta-section">
-        <h2>Ready to See Lions Up Close?</h2>
-        <a href="/book-options" class="cta-button">Book Your Visit</a>
+        <h2>WANT TO MEET THE LION KINGS?!</h2>
+        <a href="/book-options" class="cta-button">ROAR INTO ACTION!</a>
     </section>
-</main>
+</body>
+</html>

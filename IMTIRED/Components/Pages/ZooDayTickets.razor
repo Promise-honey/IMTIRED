@@ -131,18 +131,21 @@
             <div class="option">
                 <h2>Adult Ticket</h2>
                 <p>General admission for adults (ages 16 and up)</p>
+                <p><strong>Price: $20.00</strong></p>
                 <a href="#book-now" class="button">Book Now</a>
             </div>
 
             <div class="option">
                 <h2>Child Ticket</h2>
                 <p>General admission for children (ages 3 - 15)</p>
+                <p><strong>Price: $10.00</strong></p>
                 <a href="#book-now" class="button">Book Now</a>
             </div>
 
             <div class="option">
                 <h2>Family Pack</h2>
                 <p>Special package for 2 adults and 2 children</p>
+                <p><strong>Price: $50.00</strong></p>
                 <a href="#book-now" class="button">Book Now</a>
             </div>
         </div>
@@ -153,7 +156,7 @@
 
         <div class="form-field">
             <label for="ticket-type">Ticket Type</label>
-            <select id="ticket-type" name="ticket-type">
+            <select id="ticket-type" name="ticket-type" @bind="selectedTicketType">
                 <option value="adult">Adult Ticket</option>
                 <option value="child">Child Ticket</option>
                 <option value="family">Family Pack</option>
@@ -162,12 +165,16 @@
 
         <div class="form-field">
             <label for="number-of-tickets">Number of Tickets</label>
-            <input type="number" id="number-of-tickets" name="number-of-tickets" min="1" value="1">
+            <input type="number" id="number-of-tickets" name="number-of-tickets" min="1" @bind="numberOfTickets">
         </div>
 
         <div class="form-field">
             <label for="visit-date">Visit Date</label>
-            <input type="date" id="visit-date" name="visit-date">
+            <input type="date" id="visit-date" name="visit-date" @bind="visitDate">
+        </div>
+
+        <div class="form-field">
+            <p><strong>Price: @totalPrice</strong></p>
         </div>
 
         <div class="form-field">
@@ -180,12 +187,31 @@
 @inject NavigationManager NavigationManager
 
 @code {
+    private string selectedTicketType = "adult";
+    private int numberOfTickets = 1;
+    private DateTime visitDate = DateTime.Now;
+    private string totalPrice = "$20.00"; // Default price for adult ticket
+
+    // Prices for different ticket types
+    private readonly Dictionary<string, decimal> ticketPrices = new Dictionary<string, decimal>
+    {
+        { "adult", 20.00m },
+        { "child", 10.00m },
+        { "family", 50.00m }
+    };
+
+    // Update the price dynamically when the ticket type or quantity changes
+    private void UpdatePrice()
+    {
+        totalPrice = $"${(ticketPrices[selectedTicketType] * numberOfTickets):0.00}";
+    }
+
     private async Task HandleBooking()
     {
         // Collect data from the form (e.g., ticket type, quantity, visit date)
-        var ticketType = "adult"; // Get from form or model
-        var numberOfTickets = 1; // Get from form or model
-        var visitDate = DateTime.Now; // Get from form or model
+        var ticketType = selectedTicketType; // Get from form or model
+        var numberOfTickets = this.numberOfTickets; // Get from form or model
+        var visitDate = this.visitDate; // Get from form or model
 
         var bookingRequest = new TicketBookingRequest
             {
@@ -208,4 +234,3 @@
         }
     }
 }
-

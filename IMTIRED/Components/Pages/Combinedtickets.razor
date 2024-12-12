@@ -1,39 +1,196 @@
-﻿
-+
+﻿@using IMTIRED.Utilities
+@using IMTIRED.Services
+@using IMTIRED.Models
+@inject UserSession UserSession
+@inject RoomService RoomService
+@inject RoombookingService RoombookingService
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@inject TicketbookingService TicketbookingService
+@page "/combined-tickets"
 
 <style>
-body {
-    background-color: white;
-    color: #4A6244;
-    font-family: Arial, sans-serif;
-}
+    /* Adjustable Spacing Variables */
+    :root {
+        --form-padding: 15px 25px;
+        --form-margin: 10px auto;
+        --input-padding: 3px 12px;
+        --input-font-size: 0.9rem;
+        --input-margin: 5px 0;
+        --button-padding: 10px 18px;
+        --button-font-size: 1rem;
+        --button-width: 100%;
+        --button-bg-color: #5b9bd5;
+        --button-hover-bg-color: #3e6c8b;
+        --label-font-size: 0.9rem;
+        --label-margin-bottom: 4px;
+        --form-width: 80%;
+        --max-width: 600px;
+    }
 
-h1, h2 {
-    color: #4A6244;
-}
+    /* General Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+    }
 
-.container {
-    padding: 20px;
-}
+    h2 {
+        color: #2d3e50;
+        font-size: 1.6rem;
+        margin: 20px 0;
+        text-align: center;
+    }
 
-.section {
-    margin-bottom: 20px;
-}
+    form {
+        background-color: white;
+        padding: var(--form-padding);
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: var(--form-margin);
+        width: var(--form-width);
+        max-width: var(--max-width);
+    }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-}
+        form div {
+            margin-bottom: 12px;
+        }
 
-.add-to-basket {
-    background-color: #4A6244;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
+    label {
+        font-size: var(--label-font-size);
+        color: #333;
+        margin-bottom: var(--label-margin-bottom);
+        display: block;
+    }
 
-.add-to-basket:hover {
-    background-color: #36543B;
-}
+    input[type="number"], input[type="text"], input[type="date"], input[type="month"], select {
+        width: 100%;
+        padding: var(--input-padding);
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: var(--input-font-size);
+        margin-top: var(--input-margin);
+    }
+
+        input[type="number"]:focus, input[type="text"]:focus, input[type="date"]:focus, input[type="month"]:focus, select:focus {
+            border-color: #5b9bd5;
+            outline: none;
+        }
+
+    button {
+        background-color: var(--button-bg-color);
+        color: white;
+        border: none;
+        padding: var(--button-padding);
+        font-size: var(--button-font-size);
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+        display: block;
+        width: var(--button-width);
+    }
+
+        button:hover {
+            background-color: var(--button-hover-bg-color);
+        }
+
+    select {
+        padding: var(--input-padding);
+        font-size: var(--input-font-size);
+    }
+
 </style>
+
+<h2>Zoo Tickets</h2>
+<form method="post">
+    <div>
+        <label for="adultTicket">Adult Ticket - $25</label>
+        <input type="number" id="adultTicket" name="adultTicket" />
+    </div>
+    <div>
+        <label for="childTicket">Child Ticket - $15</label>
+        <input type="number" id="childTicket" name="childTicket" />
+    </div>
+    <div>
+        <label for="studentTicket">Student Ticket - $18</label>
+        <input type="number" id="studentTicket" name="studentTicket" />
+    </div>
+    <div>
+        <label for="toddlerTicket">Toddler Ticket - $10</label>
+        <input type="number" id="toddlerTicket" name="toddlerTicket" />
+    </div>
+    <div>
+        <label for="under12Ticket">Under 12 Ticket - $12</label>
+        <input type="number" id="under12Ticket" name="under12Ticket" />
+    </div>
+</form>
+
+<h2>Hotel Room Booking</h2>
+<form method="post">
+    <div>
+        <label for="roomType">Select Room Type</label>
+        <select id="roomType" name="roomType">
+            @foreach (var room in AvailableRooms)
+            {
+                <option value="@room.RoomNumber">Room @room.RoomNumber - $100/night</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="checkInDate">Check-in Date</label>
+        <input type="date" id="checkInDate" name="checkInDate" required />
+    </div>
+    <div>
+        <label for="checkOutDate">Check-out Date</label>
+        <input type="date" id="checkOutDate" name="checkOutDate" required />
+    </div>
+</form>
+
+<h2>Package Deals</h2>
+<form method="post">
+    <div>
+        <label for="packageDeal">Select a Package Deal</label>
+        <select id="packageDeal" name="packageDeal">
+            <option value="1">Package Deal 1: Zoo + Hotel - $200</option>
+            <option value="2">Package Deal 2: Zoo + 1 Day Extra Stay - $250</option>
+            <option value="3">Package Deal 3: Zoo + VIP Experience - $300</option>
+            <option value="4">Package Deal 4: Full Experience (Zoo + Hotel + VIP) - $400</option>
+        </select>
+    </div>
+</form>
+
+<h2>Payment</h2>
+<form method="post" action="/payment">
+    <div>
+        <label for="creditCardNumber">Credit Card Number</label>
+        <input type="text" id="creditCardNumber" name="creditCardNumber" required />
+    </div>
+    <div>
+        <label for="expiryDate">Expiry Date</label>
+        <input type="month" id="expiryDate" name="expiryDate" required />
+    </div>
+    <div>
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" required />
+    </div>
+    <button type="submit">Submit Payment</button>
+</form>
+
+@code {
+    private List<Room> AvailableRooms { get; set; } = new List<Room>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // Fetch rooms asynchronously from RoomService
+            AvailableRooms = await RoomService.GetRoomsAsync();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception if needed
+            Console.WriteLine("Error fetching rooms: " + ex.Message);
+        }
+    }
+}

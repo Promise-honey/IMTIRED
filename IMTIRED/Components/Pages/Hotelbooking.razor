@@ -1,0 +1,189 @@
+﻿@using IMTIRED.Utilities
+@using IMTIRED.Services
+@using IMTIRED.Models
+@inject UserSession UserSession
+@inject RoomService RoomService
+@inject RoombookingService RoombookingService
+@inject CustomerService CustomerService
+@inject NavigationManager NavigationManager
+@inject TicketbookingService TicketbookingService
+@page "/hotel-booking"
+
+
+<style>
+    .booking-page {
+        font-family: 'Arial', sans-serif;
+        background-color: #F5F5F5;
+        padding: 2rem;
+        margin-top: 3rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #5B7553;
+        }
+
+        .header p {
+            color: #777;
+            font-size: 1.1rem;
+        }
+
+    .booking-form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-field {
+        margin-bottom: 1.5rem;
+    }
+
+        .form-field label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid #ddd;
+        }
+
+            .form-field input[type="submit"] {
+                background-color: #5B7553;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+
+                .form-field input[type="submit"]:hover {
+                    background-color: #4B653F;
+                }
+</style>
+
+<div class="booking-page">
+    <div class="header">
+        <h1>Hotel Room Booking</h1>
+        <p>Book your stay with us and enjoy unparalleled comfort and luxury.</p>
+    </div>
+
+    <div class="booking-form">
+        <h2>Book Your Room</h2>
+
+        <div class="form-field">
+            <label for="customer-name">Your Name</label>
+            <input type="text" id="customer-name" name="customer-name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-field">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-field">
+            <label for="room-type">Room Type</label>
+            <select id="room-type" name="room-type" @onchange="UpdatePrice">
+                <option value="single">Single Room</option>
+                <option value="double">Double Room</option>
+                <option value="suite">Suite</option>
+                <option value="deluxe">Deluxe Room</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label for="check-in-date">Check-In Date</label>
+            <input type="date" id="check-in-date" name="check-in-date" required>
+        </div>
+
+        <div class="form-field">
+            <label for="duration">Number of Nights</label>
+            <input type="number" id="duration" name="duration" min="1" value="1" required>
+        </div>
+
+        <div class="form-field">
+            <p>Price per night: @roomPrice.ToString("C")</p>
+        </div>
+
+        <div class="form-field">
+            <p>Total Cost: @totalCost.ToString("C")</p>
+        </div>
+
+        <div class="form-field">
+            <input type="submit" value="Book Room" @onclick="HandleBooking">
+        </div>
+    </div>
+</div>
+
+@code {
+    private decimal roomPrice = 100; // Default price for single room
+    private decimal totalCost = 100; // Default total cost for 1 night in a single room
+    private int duration = 1; // Track duration separately
+
+    private async Task HandleBooking()
+    {
+        var customer = new Customer
+            {
+                CustomerId = 1,
+                FirstName = "John", // Replace with form input
+                LastName = "Doe",   // Replace with form input
+                Email = "johndoe@example.com"
+            };
+
+        var roomType = "single"; // Replace with form input
+        var room = await RoombookingService.GetRoomByType(roomType);
+        var startDate = DateTime.Now; // Replace with form input
+
+        if (room != null)
+        {
+            await RoombookingService.AddRoombookingAsync(customer, room, startDate, duration);
+            NavigationManager.NavigateTo("/confirmation");
+        }
+        else
+        {
+            Console.WriteLine("Room not available.");
+        }
+    }
+
+    private void UpdatePrice(ChangeEventArgs e)
+    {
+        var selectedRoom = e.Value.ToString();
+
+        // Define prices for different room types
+        var roomPrices = new Dictionary<string, decimal>
+        {
+            { "single", 100 },
+            { "double", 150 },
+            { "suite", 250 },
+            { "deluxe", 350 }
+        };
+
+        roomPrice = roomPrices.ContainsKey(selectedRoom) ? roomPrices[selectedRoom] : 100;
+        UpdateTotalCost();
+    }
+
+    private void UpdateTotalCost(ChangeEventArgs e = null)
+    {
+        // If called from duration input, update duration
+        if (e != null && int.TryParse(e.Value.ToString(), out int nights))
+        {
+            duration = nights;
+        }
+
+        // Recalculate total cost
+        totalCost = roomPrice * duration;
+    }
+}
