@@ -1,1 +1,174 @@
-﻿@page "/ocean-world"
+﻿@page "/animals/ocean-world"
+@using System
+
+<PageTitle>Ocean World: Dive Into Adventure!</PageTitle>
+
+<div class="header">
+    <h1>Welcome to Ocean World! 🌊</h1>
+    <p class="subheading">A magical underwater adventure awaits you! Explore the wonders of the ocean with fun facts, interactive experiences, and meet the amazing sea creatures!</p>
+</div>
+
+<div class="intro-section">
+    <div class="intro-text">
+        <h2>Discover the Secrets of the Sea 🌊</h2>
+        <p>Ocean World is your gateway to learning about the deep blue sea! From playful dolphins to majestic whales, you can explore everything that lives beneath the waves. Let’s dive right in and meet some of the ocean's most fascinating creatures!</p>
+    </div>
+    <img src="/images/ocean-background.jpg" alt="Underwater scene with colorful coral and sea creatures" />
+</div>
+
+<div class="main-features">
+    <h2 class="feature-title">Our Features</h2>
+    <div class="features">
+        <div class="feature-card">
+            <img src="/images/dolphins.png" alt="Dolphins swimming" />
+            <h3>Dolphin Discovery 🐬</h3>
+            <p>Get up close with these playful, friendly creatures. Learn how dolphins communicate and their role in the ecosystem.</p>
+        </div>
+        <div class="feature-card">
+            <img src="/images/coral-reef.jpg" alt="Coral Reef" />
+            <h3>Colorful Coral Reefs 🐠</h3>
+            <p>Explore the vibrant coral reefs and the diverse sea life that call them home. Don’t miss the underwater maze of colors!</p>
+        </div>
+        <div class="feature-card">
+            <img src="/images/whale.png" alt="Whale swimming" />
+            <h3>Whale Wonders 🐋</h3>
+            <p>Learn about the largest creatures on Earth! Find out how whales communicate and migrate across the oceans.</p>
+        </div>
+    </div>
+</div>
+
+<div class="interactive-games">
+    <h2>Interactive Fun! 🕹️</h2>
+    <p>Test your knowledge with exciting games and quizzes about sea creatures. Can you guess which fish makes the biggest splash?</p>
+    <button class="game-btn">Play Now</button>
+    <button class="quiz-btn">Take the Ocean Quiz</button>
+</div>
+
+<div class="conservation-message">
+    <h2>Protecting the Ocean 🌍</h2>
+    <p>The ocean is our home and we need to take care of it! Learn how you can help protect marine life, reduce plastic pollution, and keep our oceans clean for future generations.</p>
+    <button class="learn-more-btn">Learn More</button>
+</div>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff; /* White background */
+    }
+
+    .header {
+        text-align: center;
+        background-color: #4A6244; /* Dark Green */
+        color: white;
+        padding: 40px;
+    }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+    .subheading {
+        font-size: 1.5rem;
+    }
+
+    .intro-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+        background-color: #6B8E58; /* Lighter Green */
+    }
+
+    .intro-text {
+        text-align: center;
+        max-width: 80%;
+    }
+
+    .ocean-image {
+        width: 90%;
+        max-width: 800px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .main-features {
+        padding: 40px 20px;
+        text-align: center;
+        background-color: white; /* Golden Yellow */
+    }
+
+    .feature-title {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #ffffff; /* White for contrast */
+    }
+
+    .features {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .feature-card {
+        background-color: #6B8E58; /* White for cards */
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+        .feature-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+    .interactive-games {
+        background-color: #B78913; /* Rich Gold */
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .game-btn, .quiz-btn {
+        background-color: #ffffff; /* White for buttons */
+        color: #B78913; /* Rich Gold */
+        padding: 15px 30px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+        .game-btn:hover, .quiz-btn:hover {
+            background-color: #6B8E58; /* Lighter Green */
+            color: white;
+        }
+
+    .conservation-message {
+        padding: 40px 20px;
+        background-color: #4A6244; /* Dark Green */
+        color: white;
+        text-align: center;
+    }
+
+    .learn-more-btn {
+        background-color: #D4A017; /* Golden Yellow */
+        color: white;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+        .learn-more-btn:hover {
+            background-color: #B78913; /* Rich Gold */
+        }
+
+</style>

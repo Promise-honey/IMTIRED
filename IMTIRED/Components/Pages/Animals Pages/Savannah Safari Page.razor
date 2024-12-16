@@ -1,1 +1,254 @@
 ﻿@page "/animals/savannah"
+@using Microsoft.AspNetCore.Components
+
+<PageTitle>Savannah Safari Adventure!</PageTitle>
+
+<div class="container">
+    <header class="page-header">
+        <h1 class="header-title">Savannah Safari Adventure!</h1>
+        <p class="header-subtitle">Meet the majestic animals of the wild savannah!</p>
+        <div class="start-button">
+            <button class="btn-start">Start Your Adventure!</button>
+        </div>
+    </header>
+
+    <section class="animals-list">
+        <div class="animal-card">
+            <img src="/images/LION.jpg" alt="Lion" class="animal-image lion" />
+            <div class="animal-details">
+                <h2 class="animal-name">Lion</h2>
+                <p class="animal-description">Roar! The Lion is the king of the savannah. Did you know their roars can be heard from miles away?</p>
+                <button class="btn-learn-more">Learn More</button>
+            </div>
+        </div>
+        <div class="animal-card">
+            <img src="/images/Elephant%20in%20the%20wild.jpg" alt="Elephant" class="animal-image elephant" />
+            <div class="animal-details">
+                <h2 class="animal-name">Elephant</h2>
+                <p class="animal-description">Big ears and a long trunk! Elephants are amazing at communicating with each other.</p>
+                <button class="btn-learn-more">Learn More</button>
+            </div>
+        </div>
+        <div class="animal-card">
+            <img src="/images/giraffe-in-zoo.jpg" alt="Giraffe" class="animal-image giraffe" />
+            <div class="animal-details">
+                <h2 class="animal-name">Giraffe</h2>
+                <p class="animal-description">With long necks, giraffes can reach the highest branches of trees to munch on leaves!</p>
+                <button class="btn-learn-more">Learn More</button>
+            </div>
+        </div>
+        <div class="animal-card">
+            <img src="/images/zEBRA.png" alt="Zebra" class="animal-image zebra" />
+            <div class="animal-details">
+                <h2 class="animal-name">Zebra</h2>
+                <p class="animal-description">No two zebras have the same stripes! It’s their special fingerprint!</p>
+                <button class="btn-learn-more">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="fun-facts">
+        <h3>Fun Facts!</h3>
+        <div class="fact-box">
+            <div class="fact-item">
+                <p>Did you know? A lion's roar can be heard from up to 5 miles away!</p>
+            </div>
+            <div class="fact-item">
+                <p>Elephants are the only animals that can’t jump!</p>
+            </div>
+            <div class="fact-item">
+                <p>Giraffes sleep only 30 minutes a day!</p>
+            </div>
+            <div class="fact-item">
+                <p>Zebras can sleep standing up, just like horses!</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="page-footer">
+        <p>Stay curious and keep exploring the savannah. New animal friends are waiting for you!</p>
+    </footer>
+</div>
+
+<style>
+    body {
+        font-family: 'Comic Sans MS', sans-serif;
+        background-color: white;
+        color: black;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .container {
+        margin: 0 auto;
+        padding: 30px;
+        max-width: 1200px;
+    }
+
+    .page-header {
+        text-align: center;
+        background-color: #4C724C;
+        padding: 40px 20px;
+        border-radius: 15px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        color: white;
+        position: relative;
+    }
+
+    .header-title {
+        font-size: 3rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: white
+    }
+
+    .header-subtitle {
+        font-size: 1.5rem;
+        font-style: italic;
+        color: #F1F8E9;
+    }
+
+    .start-button {
+        margin-top: 20px;
+    }
+
+    .btn-start {
+        background-color: #B78913;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-start:hover {
+            background-color: #F9A825;
+            
+        }
+
+    .animals-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 30px;
+        gap: 30px;
+    }
+
+    .animal-card {
+        background-color: #ffffff;
+        width: 250px;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        margin-bottom: 30px;
+        animation: bounceIn 1s ease-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .animal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+    .animal-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        transition: transform 0.3s ease;
+    }
+
+    .animal-card:hover .animal-image {
+        transform: scale(1.05);
+    }
+
+    .animal-details {
+        margin-top: 15px;
+    }
+
+    .animal-name {
+        font-size: 1.5rem;
+        color: black;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+    }
+
+    .animal-description {
+        font-size: 1rem;
+        color: #757575;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .btn-learn-more {
+        background-color: #4C724C;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+        .btn-learn-more:hover {
+            background-color: #388E3C;
+        }
+
+    .fun-facts {
+        background-color: #4C724C;
+        padding: 30px;
+        border-radius: 15px;
+        margin-top: 50px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        color: white;
+        text-align: center;
+    }
+
+        .fun-facts h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+    .fact-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .fact-item {
+        background-color: #46543B;
+        padding: 20px;
+        border-radius: 10px;
+        width: 200px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+        .fact-item p {
+            font-size: 1rem;
+            color: white;
+            text-align: center;
+        }
+
+    .page-footer {
+        background-color: #4C724C;
+        text-align: center;
+        padding: 20px;
+        border-radius: 15px;
+        color: white;
+        margin-top: 30px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+</style>

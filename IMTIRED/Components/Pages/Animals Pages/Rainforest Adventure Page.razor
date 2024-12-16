@@ -1,2 +1,232 @@
 ﻿@page "/animals/rainforest"
 
+<div class="rainforest-page">
+    <div class="header">
+        <h1>Welcome to the Amazing Rainforest Adventure!</h1>
+        <p>Explore the wild wonders of the rainforest and meet its colorful inhabitants!</p>
+    </div>
+
+    <div class="animal-grid">
+        <div class="animal-card">
+            <div class="animal-image">
+                <img src="/images/toucan.png" alt="Toucan" />
+                <div class="pop-up-fact">Did you know toucans can turn their heads 180 degrees?</div>
+            </div>
+            <h2>The Colorful Beak-Master!</h2>
+            <p>With its bright, vibrant beak, this bird loves to snack on fruit high in the trees. Can you guess its favorite color?</p>
+            <button onclick="playToucanSound()">Listen to the Toucan!</button>
+        </div>
+
+        <div class="animal-card">
+            <div class="animal-image">
+                <img src="/images/jaguar.png" alt="Jaguar" />
+                <div class="pop-up-fact">Did you know jaguars are amazing swimmers and can cross rivers with ease?</div>
+            </div>
+            <h2>The Mighty Jaguar!</h2>
+            <p>This big cat is a master of stealth. Its spots help it blend into the jungle, making it the true king of the rainforest!</p>
+            <button onclick="playJaguarSound()">Hear the Jaguar's Roar!</button>
+        </div>
+
+        <div class="animal-card">
+            <div class="animal-image">
+                <img src="/images/poison-dart-frog.png" alt="Poison Dart Frog" />
+                <div class="pop-up-fact">Did you know some poison dart frogs are so tiny they can fit on a coin?</div>
+            </div>
+            <h2>Tiny but Mighty: The Poison Dart Frog!</h2>
+            <p>These small, colorful frogs are more than just a pretty sight. Their bright hues warn predators of their powerful poison!</p>
+            <button onclick="playFrogSound()">Hear the Frog!</button>
+        </div>
+    </div>
+
+    <!-- Quiz Section -->
+    <div class="quiz-section">
+        <h3>Test Your Rainforest Knowledge!</h3>
+        <p>Which animal is the biggest cat in the Americas?</p>
+        <button onclick="checkAnswer('jaguar')">Jaguar</button>
+        <button onclick="checkAnswer('lion')">Lion</button>
+        <button onclick="checkAnswer('tiger')">Tiger</button>
+        <p id="quiz-result"></p>
+    </div>
+</div>
+
+<style>
+    /* Full height and remove excessive margin at top */
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: #f4f4f4; /* Light neutral background */
+    }
+
+    .rainforest-page {
+        background-color: white; /* Lighter green background */
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 50px; /* Reduced top margin */
+        min-height: 50vh; /* Ensure content fills the full height */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .header {
+        text-align: center;
+        background-color: #4C724C;
+        padding: 20px;
+        border-radius: 12px;
+        margin-bottom: 40px; /* Increased margin to give more space */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .header p {
+            color: #fff;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+    .animal-grid {
+        display: flex;
+        justify-content: space-around;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-bottom: 50px; /* Added margin for extra spacing at the bottom */
+        flex-grow: 1; /* Ensure the grid expands to fill available space */
+    }
+
+    .animal-card {
+        background-color: #4C724C;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        flex: 1;
+        min-width: 280px;
+        max-width: 320px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .animal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+    .animal-image {
+        position: relative;
+    }
+
+    .animal-card img {
+        max-width: 100%;
+        border-radius: 12px;
+        height: 250px;
+        object-fit: cover;
+        margin-bottom: 15px;
+    }
+
+    .pop-up-fact {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        font-size: 14px;
+    }
+
+    .animal-image:hover .pop-up-fact {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .animal-card h2 {
+        color: white;
+        font-size: 22px;
+        margin: 15px 0;
+        font-weight: bold;
+    }
+
+    .animal-card p {
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    button {
+        background-color: #B78913;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+        margin-top: 10px;
+    }
+
+        button:hover {
+            background-color: #f4a261;
+        }
+
+    .quiz-section {
+        background-color: #f4f4f4;
+        color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 30px; /* Adjusted margin to fit better */
+    }
+
+        .quiz-section button {
+            margin: 10px;
+            background-color: #4C724C;
+            color: white;
+            border-radius: 5px;
+        }
+
+    #quiz-result {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+    function playToucanSound() {
+        let audio = new Audio('/sounds/toucan.mp3');
+        audio.play();
+    }
+
+    function playJaguarSound() {
+        let audio = new Audio('/sounds/jaguar.mp3');
+        audio.play();
+    }
+
+    function playFrogSound() {
+        let audio = new Audio('/sounds/frog.mp3');
+        audio.play();
+    }
+
+    function checkAnswer(answer) {
+        const result = document.getElementById('quiz-result');
+        if (answer === 'jaguar') {
+            result.textContent = 'Correct! The Jaguar is the biggest cat in the Americas!';
+            result.style.color = 'green';
+        } else {
+            result.textContent = 'Oops! Try again.';
+            result.style.color = 'red';
+        }
+    }
+</script>
